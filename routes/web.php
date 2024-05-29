@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::group(['middleware' => ['auth', 'verified']], function() {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 });
+
+// Mengatur semua rute yang diperlukan untuk autentikasi
+Auth::routes();
