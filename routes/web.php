@@ -15,9 +15,10 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::group(['middleware' => ['auth', 'verified']], function() {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return redirect('/login');
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Mengatur semua rute yang diperlukan untuk autentikasi
 Auth::routes();
