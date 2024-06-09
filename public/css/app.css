@@ -1,0 +1,72 @@
+:root {
+    --primary-color: #006769;
+    --secondary-color: #40a578;
+    --bg-color: #f2f2f6;
+}
+
+#hero_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+}
+
+.container_hero {
+    padding: 0 10rem;
+}
+
+.title_hero {
+    font-weight: 700;
+}
+
+.bg-success {
+    background-color: var(--secondary-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+blockquote {
+    font-size: 1.25rem;
+}
+
+#field_section {
+    background-color: var(--bg-color);
+    min-height: 130vh;
+}
+
+.card {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .container_hero {
+        padding: 0 2rem; 
+    }
+
+    .title_hero {
+        font-size: 2rem; 
+    }
+
+    .lead {
+        font-size: 1rem; 
+    }
+}
+
+.bg-footer {
+    background-color: var(--primary-color);
+}
+
+.footer-icon{
+    color: #fff;
+}
+

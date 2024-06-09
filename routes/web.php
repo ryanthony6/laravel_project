@@ -23,11 +23,17 @@ Route::get('/tes', function () {
     return view('tes');
 });
 
+Route::get('/kocak', function () {
+    return view('homepage');
+});
+
 Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/homepage', [HomeController::class, 'index'])->name('home');
+
+
+// Route::get('/homepage', [HomeController::class, 'index'])->name('home');
 // Mengatur semua rute yang diperlukan untuk autentikasi
-Auth::routes();
+// Auth::routes();
 
