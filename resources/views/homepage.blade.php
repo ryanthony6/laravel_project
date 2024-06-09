@@ -71,6 +71,11 @@
         <h2 class="text-center pt-5 pb-4">Contact Us</h2>
         <div class="row">
             <div class="col-md-6">
+                <!-- Map (Replace the placeholder with your map code) -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.979053554356!2d2.352257514315127!3d48.85661427954464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sEiffel%20Tower!5e0!3m2!1sen!2sfr!4v1633582687401!5m2!1sen!2sfr" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="col-md-6">
+                <!-- Contact Form -->
                 <form>
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
@@ -83,7 +88,13 @@
                     <div class="mb-3">
                         <label for="message" class="form-label">Message</label>
                         <textarea class="form-control" id="message" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
+    
 </section>
 
 @endsection

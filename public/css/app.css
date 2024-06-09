@@ -73,7 +73,7 @@ blockquote {
 
 #testimonials-section {
     background-color: var(--secondary-color);
-    min-height: 80vh
+    min-height: 50vh
 }
 
 .gtco-testimonials {
@@ -172,3 +172,7 @@ blockquote {
     outline: 0;
 }
 
+#contact-us{
+    min-height: 80vh
+
+}
