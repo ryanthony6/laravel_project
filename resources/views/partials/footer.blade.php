@@ -5,23 +5,17 @@
       <section class="mb-2">
         <!-- Facebook -->
         <a
-          data-mdb-ripple-init
-          class="btn btn-floating btn-lg m-1"
+          class="btn btn-lg m-1"
           href="#!"
-          role="button"
-          data-mdb-ripple-color="light"
           ><i class="fab fa-facebook-f footer-icon"></i
         ></a>
         <!-- Instagram -->
         <a
-          data-mdb-ripple-init
-          class="btn btn-floating btn-lg m-1"
+          class="btn btn-lg m-1 "
           href="#!"
-          role="button"
-          data-mdb-ripple-color="light"
           ><i class="fab fa-instagram footer-icon"></i
         ></a>
-
+        
       </section>
       <!-- Section: Social media -->
     </div>

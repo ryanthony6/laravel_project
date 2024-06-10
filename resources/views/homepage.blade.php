@@ -1,21 +1,19 @@
-{{-- @extends('layouts.app') --}}
-@extends('layouts.app')
+@extends('layouts.mainlayout')
 
 @section('content')
 <section id="hero_section" style="background-image: url('{{ asset('Images/badminton_field.png') }}')">
-    <div class="container text-center container_hero ">
-        <h1 class="display-4 text-white title_hero">Introduce Your Product Quickly & Effectively</h1>
-        <p class="lead text-white px-md-3"> <!-- Adding padding on medium and larger devices -->
+    <div class="container text-center container-hero ">
+        <h1 class="display-4 text-white title-hero">Introduce Your Product Quickly & Effectively</h1>
+        <p class="lead text-white px-md-3"> 
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
         </p>
-        <a class="btn btn-primary btn-lg mt-3" href="#" role="button">Book Now!</a>
+        <a class="btn btn-primary btn-lg mt-3" href="#field_section" role="button">Book Now!</a>
     </div>
 </section>
 
-
 <section id="field_section">
     <div class="container">
-        <h2 class="text-center pt-5 pb-4">Lapangan</h2>
+        <h2 class="text-center pt-5 pb-4">Available Schedule</h2>
             <div class="row">
                 @for ($i = 1; $i <= 6; $i++)
                     <div class="col-md-4 mb-5 mb-md-4">
@@ -37,65 +35,71 @@
     <div class="gtco-testimonials">
         <h2>Reviews</h2>
         <div class="owl-carousel owl-carousel1 owl-theme">
-      
-            <div class="card text-center"><img class="card-img-top" src="https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=50&w=300" alt="">
+            <div class="card text-center">
               <div class="card-body">
-                <h5>Marvel Juan <br />
-            
+                <p class="card-text">“ Tempatnya bagus, sangat nyaman. Pelayanan sangat ramah, harga terjangkau” </p>
+                <h5>Marvel Juan
                 </h5>
+              </div>
+            </div>
+            <div class="card text-center">
+              <div class="card-body">
                 <p class="card-text">“ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia illo quod ipsa cupiditate dolorum laboriosam et ex veniam quis? Nemo. ” </p>
-              </div>
-            </div>
-            <div class="card text-center"><img class="card-img-top" src="https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=50&w=300" alt="">
-              <div class="card-body">
-                <h5>Edward Djohan <br />
+                <h5>Aristo Yongka
                 </h5>
-                <p class="card-text">“ Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque illo, non voluptates nisi quo possimus culpa eius porro. A, adipisci!” </p>
               </div>
             </div>
-            <div class="card text-center"><img class="card-img-top" src="https://images.unsplash.com/photo-1572561300743-2dd367ed0c9a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=50&w=300" alt="">
+            <div class="card text-center">
               <div class="card-body">
-                <h5>Kelvin Wu <br />
+                <p class="card-text">“ Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia illo quod ipsa cupiditate dolorum laboriosam et ex veniam quis? Nemo. ” </p>
+                <h5>Edward Djohan
                 </h5>
-                <p class="card-text">“ Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam ducimus provident deserunt aut cumque quibusdam repudiandae, cupiditate natus labore perspiciatis!” </p>
               </div>
             </div>
-    
-
         </div>
     </div>
 </section>
 
 <section id="contact-us">
+    
+    <h2 class="text-center pt-5 pb-5">Contact Us</h2>
     <div class="container">
-        <h2 class="text-center pt-5 pb-4">Contact Us</h2>
-        <div class="row">
+        <div class="row d-flex justify-content-center align-items-center p-4 bg-white contact-us-container">
             <div class="col-md-6">
-                <!-- Map (Replace the placeholder with your map code) -->
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.979053554356!2d2.352257514315127!3d48.85661427954464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sEiffel%20Tower!5e0!3m2!1sen!2sfr!4v1633582687401!5m2!1sen!2sfr" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15867.978479079586!2d106.843154!3d-6.131424!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f50ad818a3f9%3A0xcd61fbccea50d391!2sGor%20Cahaya!5e0!3m2!1sen!2sid!4v1718010559847!5m2!1sen!2sid" width="100%" height="400" class="pt-2 "  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="col-md-6">
                 <!-- Contact Form -->
                 <form>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                        <!-- Name Input with Icon -->
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" id="name" placeholder="Name">
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email">
+                        <!-- Email Input with Icon -->
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="message" rows="3"></textarea>
+                        <!-- Message Textarea with Icon -->
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-chat-dots"></i></span>
+                            <textarea class="form-control" id="message" rows="3" placeholder="Message"></textarea>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
+        
     </div>
-    
 </section>
+
 
 @endsection
 

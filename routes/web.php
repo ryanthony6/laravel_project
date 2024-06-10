@@ -27,9 +27,8 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Auth::routes();
 
+Route::get('/homepage', [HomeController::class, 'index'])->name('home');
 
-// Route::get('/homepage', [HomeController::class, 'index'])->name('home');
-// Mengatur semua rute yang diperlukan untuk autentikasi
-// Auth::routes();
 
