@@ -12,8 +12,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <!-- Scripts -->
+    <!-- Styles -->
+    @yield('styles')
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
@@ -77,6 +79,9 @@
         <main class="py-4">
             @yield('content')
         </main>
+
     </div>
+
+    <!-- Scripts -->
 </body>
 </html>
