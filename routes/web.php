@@ -19,10 +19,6 @@ use App\Http\Controllers\HomeController;
 //     return view('homepage');
 // });
 
-Route::get('/tes', function () {
-    return view('tes');
-});
-
 Route::get('/kocak', function () {
     return view('homepage');
 });
