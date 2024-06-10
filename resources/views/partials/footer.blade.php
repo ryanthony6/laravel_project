@@ -1,6 +1,6 @@
 <footer class="text-center bg-footer">
     <!-- Grid container -->
-    <div class="container pt-4">
+    <div class="container pt-3">
       <!-- Section: Social media -->
       <section class="mb-2">
         <!-- Facebook -->
@@ -22,7 +22,7 @@
     <!-- Grid container -->
   
     <!-- Copyright -->
-    <div class="text-center p-3 text-white">
+    <div class="text-center p-2 text-white">
      Cahaya Sports© 2024 Copyright
     </div>
     <!-- Copyright -->

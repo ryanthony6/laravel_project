@@ -162,3 +162,17 @@ body {
 .footer-icon {
     color: #fff;
 }
+
+@media (max-width: 768px) {
+    .container-hero {
+        padding: 0 2rem; 
+    }
+
+    .title-hero {
+        font-size: 2rem; 
+    }
+
+    .lead {
+        font-size: 1rem; 
+    }
+}

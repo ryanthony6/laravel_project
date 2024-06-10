@@ -92,11 +92,12 @@
                             <textarea class="form-control" id="message" rows="3" placeholder="Message"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
-        
     </div>
 </section>
 
