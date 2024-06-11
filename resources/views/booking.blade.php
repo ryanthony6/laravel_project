@@ -1,38 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5 booking-info">
-        <h1 class="text-center">Court details</h1>
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <div class="court-image-placeholder">
-                    <img src="{{ asset('images/ss3.png') }}" alt="Court Image" class="img-fluid rounded">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <div class="card custom-card">
+                    <h2 class="card-header text-center">Court 1</h2>
+                    <div class="card-body">
+                        <img src="{{ asset('images/Ss3.png') }}" alt="Gambar Lapangan" class="img-fluid rounded mb-3">
+                        <div class="mb-3">
+                            <label for="date1" class="form-label">Tanggal:</label>
+                            <input type="date" class="form-control" id="date1" name="date1" value="{{ date('Y-m-d') }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="time1" class="form-label">Jam main:</label>
+                            <div class="d-flex flex-wrap">
+                                @for ($i = 7; $i < 22; $i++)
+                                    <button class="btn btn-outline-secondary time-slot m-1" data-time="{{ $i }}" data-court="1">
+                                        {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}:00 - {{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}:00
+                                    </button>
+                                @endfor
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <p class="price-text">Harga: Rp <span id="total-price">0</span></p>
+                        </div>
+                        <button id="book-now-btn" class="btn btn-success w-100">Book Now</button>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <h2>Nama lapangan</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo nostrum dolor fugiat deleniti consequuntur ipsam. Accusantium deserunt maiores autem corrupti praesentium consectetur, a eveniet. Voluptates sunt ex repellendus magni libero.</p>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-2">
-                <h3>Hari/Tanggal</h3>
-                <input type="date" class="form-control" id="booking-date" value="{{ date('Y-m-d') }}">
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <h3>Jam main</h3>
-                <div class="d-flex flex-wrap">
-                    @for ($i = 7; $i < 22; $i++)
-                        <button class="btn btn-outline-secondary time-slot m-1" data-time="{{ $i }}">{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}:00 - {{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}:00</button>
-                    @endfor
-                </div>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-12 text-center">
-                <button class="btn btn-success">Book Now</button>
             </div>
         </div>
     </div>
