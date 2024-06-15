@@ -55,16 +55,21 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/ProfilePic.png') }}" alt="{{ Auth::user()->image ? 'User Image' : 'Default Image' }}" class="rounded-circle" alt="User Image" width="30" height="30" style="margin-right: 10px;">
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{ route('editProfile') }}">
+                                        {{ __('Edit Profile') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -83,7 +88,6 @@
 
     </div>
 
-    <!-- Scripts -->
-     <script src="{{ asset('js/ScheduleSelection.js') }}"></script>
+    <script src="{{ asset('js/scheduleSelection.js') }}"></script>
 </body>
 </html>

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +18,14 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/home');
 });
  
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/booking', [App\Http\Controllers\HomeController::class, 'booking'])->name('booking');
+Route::get('/editProfile', [App\Http\Controllers\HomeController::class, 'editProfile'])->name('editProfile');
 
-// Mengatur semua rute yang diperlukan untuk autentikasi
+Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 Auth::routes();
