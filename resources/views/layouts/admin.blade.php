@@ -21,7 +21,7 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-transparent fixed-top bg-white shadow-sm">
-        
+
         <div class="container">
             <a class="navbar-brand text-black" href="{{ url('/') }}">
                 Cahaya Sports
@@ -77,34 +77,36 @@
 
     <div class="d-flex flex-grow-1">
         <!-- Sidebar -->
-        <nav id="sidebar" class="bg-dark text-white abo">
+        <nav id="sidebar" class="bg-dark text-white">
             <div class="p-4">
                 <h4 class="text-center">Menu</h4>
                 <ul class="list-unstyled components">
                     <li class="active">
                         <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle text-white align-items-center">
+                            class="d-flex text-white align-items-center gap-2">
                             @include('icons/dashboard-layout') Dashboard
                         </a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="{{ route('admin.home') }}"> Home</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('admin.statistics') }}"><i class="icon li-user"></i> Statistics</a>
-                            </li>
-                        </ul>
+                    <li>
+                        <a href="{{ route('admin.statistics') }}" class="d-flex text-white align-items-center gap-2">
+                            @include('icons/chart') Statistics</a>
+                    </li>
+
                     </li>
                     <li>
-                        <a href="{{ route('admin.schedules') }}"><i class="icon li-cart"></i> Schedules</a>
+                        <a href="{{ route('admin.schedules') }}"
+                            class="d-flex text-white align-items-center gap-2">@include('icons/schedule')Schedules</a>
                     </li>
                     <li>
-                        <a href="#"><i class="icon li-box"></i> Orders</a>
+                        <a href="#"
+                            class="d-flex text-white align-items-center gap-2">@include('icons/order')
+                            Orders</a>
                     </li>
                     <li>
-                        <a href="#"><i class="icon li-people"></i> Customers Review</a>
+                        <a href="#"
+                            class="d-flex text-white align-items-center gap-2">@include('icons/comment')
+                            Review</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </nav>
