@@ -1,4 +1,4 @@
-<footer class="text-center bg-footer">
+<footer class="text-center bg-footer fixed-bottom">
     <!-- Grid container -->
     <div class="container pt-3">
       <!-- Section: Social media -->
