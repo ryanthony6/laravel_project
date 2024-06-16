@@ -22,7 +22,7 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title">Lapangan {{ $i }}</h5>
                                     <h5 class="card-title">Rp. 100.000 / jam</h5>
-                                        <a href="#" class="btn btn-primary">Details</a>
+                                        <a href="{{ route('booking') }}" class="btn btn-primary">Details</a>
                                 </div>
                         </div>
                     </div>

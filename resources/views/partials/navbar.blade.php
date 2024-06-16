@@ -12,7 +12,7 @@
 
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav ms-auto ">
+                <ul class="navbar-nav ms-auto gap-3">
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{{ url('/') }}">Home</a>
                     </li>
@@ -66,5 +66,4 @@
             </div>
         </div>
     </nav>
-
 @endunless

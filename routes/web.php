@@ -17,14 +17,6 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-// Route::get('/homepage', function () {
-//     return view('homepage');
-// });
-
-Route::get('/kocak', function () {
-    return view('homepage');
-});
-
 Route::get('/', function () {
     return redirect('/home');
 });
@@ -39,7 +31,7 @@ Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('p
 
 Auth::routes();
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Home route
     Route::get('/home', function () {
         return view('admin.home');
@@ -59,13 +51,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/orders', function () {
         return view('admin.orders');
     })->name('admin.orders');
-
-    // Customers Review route
-    Route::get('/customers-review', function () {
-        return view('admin.customers-review');
-    })->name('admin.customers-review');
-
-    Route::post('/admin/schedule-management', 'ScheduleController@update')->name('admin.schedule-management.update');
 });
 
 
