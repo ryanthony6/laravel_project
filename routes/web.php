@@ -17,6 +17,14 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
+// Route::get('/homepage', function () {
+//     return view('homepage');
+// });
+
+Route::get('/kocak', function () {
+    return view('homepage');
+});
+
 Route::get('/', function () {
     return redirect('/home');
 });
@@ -29,3 +37,4 @@ Route::post('/booking/store', [BookingController::class, 'store'])->name('bookin
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 Auth::routes();
+
