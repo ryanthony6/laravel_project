@@ -15,10 +15,20 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+// Route::get('/homepage', function () {
+//     return view('homepage');
+// });
+
+Route::get('/kocak', function () {
+    return view('homepage');
+});
+
 Route::get('/', function () {
     return redirect('/login');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Mengatur semua rute yang diperlukan untuk autentikasi
 Auth::routes();
+
+Route::get('/homepage', [HomeController::class, 'index'])->name('home');
+
+
