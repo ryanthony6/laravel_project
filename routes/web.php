@@ -52,6 +52,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/customers-review', function () {
         return view('admin.customers-review');
     })->name('admin.customers-review');
+
+    Route::post('/admin/schedule-management', 'ScheduleController@update')->name('admin.schedule-management.update');
 });
 
 

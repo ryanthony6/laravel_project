@@ -83,12 +83,12 @@
                 <ul class="list-unstyled components">
                     <li class="active">
                         <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
-                            class="dropdown-toggle text-white">
-                            <i class="icon li-home"></i> Dashboard
+                            class="dropdown-toggle text-white align-items-center">
+                            @include('icons/dashboard-layout') Dashboard
                         </a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
-                                <a href="{{ route('admin.home') }}"><i class="icon li-dashboard"></i>Home</a>
+                                <a href="{{ route('admin.home') }}"> Home</a>
                             </li>
                             <li>
                                 <a href="{{ route('admin.statistics') }}"><i class="icon li-user"></i> Statistics</a>
