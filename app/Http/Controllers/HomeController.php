@@ -25,4 +25,9 @@ class HomeController extends Controller
     {
         return view('homepage');
     }
+
+    public function booking()
+    {
+        return view('booking');
+    }
 }

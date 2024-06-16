@@ -26,9 +26,10 @@ Route::get('/kocak', function () {
 Route::get('/', function () {
     return redirect('/login');
 });
+ 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/booking', [App\Http\Controllers\HomeController::class, 'booking'])->name('booking');
 
+// Mengatur semua rute yang diperlukan untuk autentikasi
 Auth::routes();
-
-Route::get('/homepage', [HomeController::class, 'index'])->name('home');
-
 
