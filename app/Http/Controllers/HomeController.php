@@ -30,4 +30,8 @@ class HomeController extends Controller
     {
         return view('booking');
     }
+
+    public function editProfile(){
+        return view('editProfile');
+    }
 }
