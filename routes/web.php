@@ -15,6 +15,14 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+// Route::get('/homepage', function () {
+//     return view('homepage');
+// });
+
+Route::get('/kocak', function () {
+    return view('homepage');
+});
+
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -24,3 +32,4 @@ Route::get('/booking', [App\Http\Controllers\HomeController::class, 'booking'])-
 
 // Mengatur semua rute yang diperlukan untuk autentikasi
 Auth::routes();
+
