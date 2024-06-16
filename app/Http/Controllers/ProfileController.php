@@ -5,13 +5,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
 
     public function destroy()
     {
-        $user = Auth::user();
+        $user = Auth::User();
     // Hapus semua relasi atau data terkait jika diperlukan
         $user->delete();
 

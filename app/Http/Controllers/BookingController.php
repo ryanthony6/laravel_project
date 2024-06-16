@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -17,7 +17,7 @@ class BookingController extends Controller
         ]);
 
         $booking = new Booking();
-        $booking->user_name = Auth::user()->name; // Store the user's name
+        $booking->user_name = Auth::user()->name;
         $booking->date = $request->date;
         $booking->time_slots = $request->time_slots;
         $booking->price = $request->price;

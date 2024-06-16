@@ -134,7 +134,7 @@
                     </div>
                     <div class="button-center">
                         <button type="submit" class="btn btn-success btn-block justify-content-center align-items-center">Save Changes</button>
-                        <button type="button" class="btn btn-primary btn-block justify-content-center align-items-center">Back to home</button>
+                        <a href={{ route('home') }} type="button" class="btn btn-primary btn-block justify-content-center align-items-center">Back to home</a>
                         <button type="button" class="btn btn-danger btn-block justify-content-center align-items-center" data-toggle="modal" data-target="#deleteAccountModal">
                             Delete Account
                         </button>
