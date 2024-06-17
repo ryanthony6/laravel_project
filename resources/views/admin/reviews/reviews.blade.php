@@ -1,9 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-   
-
-    <main class="container px-3">
+    <main class="container px-3 py-3">
 
         <!-- START DATA -->
         <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -14,6 +12,59 @@
                         placeholder="Masukkan kata kunci" aria-label="Search">
                     <button class="btn btn-secondary" type="submit">Cari</button>
                 </form>
+            </div>
+
+            <!-- TOMBOL TAMBAH DATA -->
+            <div class="pb-3">
+                <h4>
+                    Review from visitors
+                </h4>
+            </div>
+
+            <!-- Table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-1">No</th>
+                        <th class="col-md-1">Email</th>
+                        <th class="col-md-2">Nama</th>
+                        <th class="col-md-2">Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($reviews->isEmpty())
+                        <tr>
+                            <td colspan="4">Tidak ada data yang tersedia.</td>
+                        </tr>
+                    @else
+                        <?php $i = $reviews->firstItem(); ?>
+                        {{-- @foreach ($reviews as $review) --}}
+                            <tr>
+                                <td>1</td>
+                                <td>exoticfire5@gmail.com</td>
+                                <td>Ryan</td>
+                                <td>Tempatnya bagus, orang nya ramah</td>
+                            </tr>
+                            <?php $i++; ?>
+                        {{-- @endforeach --}}
+                    @endif
+                </tbody>
+            </table>
+
+            {{ $reviews->links() }}
+        </div>
+        <!-- AKHIR DATA -->
+    </main>
+    
+    <main class="container px-3">
+
+        <!-- START DATA -->
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <!-- FORM PENCARIAN -->
+            <div class="pb-3">
+                <h4>
+                    Review to Display
+                </h4>
             </div>
 
             <!-- TOMBOL TAMBAH DATA -->

@@ -70,26 +70,27 @@
             </div>
             <div class="col-md-6">
                 <!-- Contact Form -->
-                <form>
+                <form action="{{ route('contact.us.store') }}" method="POST">
+                    {{ csrf_field() }}
                     <div class="mb-3">
                         <!-- Name Input with Icon -->
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-person"></i></span>
-                            <input type="text" class="form-control" id="name" placeholder="Name">
+                            <input type="text" class="form-control" id="name" placeholder="Name" name="name">
                         </div>
                     </div>
                     <div class="mb-3">
                         <!-- Email Input with Icon -->
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <input type="email" class="form-control" id="email" placeholder="Email" name="email">
                         </div>
                     </div>
                     <div class="mb-3">
                         <!-- Message Textarea with Icon -->
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-chat-dots"></i></span>
-                            <textarea class="form-control" id="message" rows="3" placeholder="Message"></textarea>
+                            <textarea class="form-control" id="message" rows="3" placeholder="Message" name="message"></textarea>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
