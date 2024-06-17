@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -22,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/home', function () {
         return view('admin.home');
     })->name('admin.home');
@@ -41,5 +42,8 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
 
     Route::resource('reviews', ReviewController::class);
 });
+
+Route::get('contact-us', [ContactController::class, 'index']);
+Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 
 Auth::routes();
