@@ -30,3 +30,15 @@
       carousels();
     })(jQuery);
   })();
+
+  const navbar = document.querySelector(".fixed-top");
+  window.onscroll = () => {
+    if (window.scrollY > 100) {
+      navbar.classList.add("scroll-nav-active");
+      navbar.classList.add("text-nav-active");
+      navbar.classList.remove("navbar-dark");
+    } else {
+      navbar.classList.remove("scroll-nav-active");
+      navbar.classList.add("navbar-dark");
+    }
+  }

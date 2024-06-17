@@ -13,6 +13,16 @@ body {
     font-family: signika, sans-serif;
 }
 
+/* Navbar */
+.scroll-nav-active{
+    background-color: #fff;
+    border-bottom: 1px solid var(--grey);
+}
+
+.text-nav-active{
+    color: #000;
+}
+
 #hero_section {
     display: flex;
     flex-direction: column;
