@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -37,6 +38,8 @@ Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
     Route::get('/orders', function () {
         return view('admin.orders');
     })->name('admin.orders');
+
+    Route::resource('reviews', ReviewController::class);
 });
 
 Auth::routes();
