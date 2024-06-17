@@ -1,3 +1,4 @@
+@unless (Route::is('login') || Route::is('register') || Route::is('password.request') || Route::is('profile.index') )
 <footer class="text-center bg-footer">
     <!-- Grid container -->
     <div class="container pt-3">
@@ -27,5 +28,6 @@
     </div>
     <!-- Copyright -->
   </footer>
+@endunless
 
  

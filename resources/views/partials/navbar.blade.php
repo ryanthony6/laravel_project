@@ -1,4 +1,4 @@
-@unless (Route::is('login') || Route::is('register') || Route::is('password.request'))
+@unless (Route::is('login') || Route::is('register') || Route::is('password.request') || Route::is('profile.index') )
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container">

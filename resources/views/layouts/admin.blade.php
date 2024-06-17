@@ -81,17 +81,17 @@
             <div class="p-4">
                 <h4 class="text-center">Menu</h4>
                 <ul class="list-unstyled components">
-                    <li class="active">
+                    <li class="{{ Route::is('admin.home') ? 'active' : '' }}">
                         <a href="{{ route('admin.home') }}" class="d-flex text-white align-items-center gap-1">
                             @include('icons/dashboard-layout') Dashboard
                         </a>
-                    <li>
+                    <li class="{{ Route::is('admin.statistics') ? 'active' : '' }}">
                         <a href="{{ route('admin.statistics') }}" class="d-flex text-white align-items-center gap-2">
                             @include('icons/chart') Statistics</a>
                     </li>
 
                     </li>
-                    <li>
+                    <li class="{{ Route::is('admin.schedules') ? 'active' : '' }}">
                         <a href="{{ route('admin.schedules') }}"
                             class="d-flex text-white align-items-center gap-2">@include('icons/schedule')Schedules</a>
                     </li>
