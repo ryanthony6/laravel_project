@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BookingHistoryController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -19,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/booking_history', [BookingHistoryController::class, 'index'])->name('booking_history.index');
 });
 
 Route::prefix('admin')->middleware(['auth','admin'])->group(function () {

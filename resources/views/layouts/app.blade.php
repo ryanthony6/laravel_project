@@ -25,6 +25,7 @@
 
     <!-- Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bookHistory.css') }}" rel="stylesheet">
 
 
 </head>

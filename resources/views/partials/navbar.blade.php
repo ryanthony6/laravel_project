@@ -53,6 +53,10 @@
                                 <a class="dropdown-item" href="{{ route('profile.index') }}">
                                     {{ __('Edit Profile') }}
                                 </a>
+
+                                <a class="dropdown-item" href="{{ route('booking_history.index') }}">
+                                    {{ __('Booking History') }}
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
