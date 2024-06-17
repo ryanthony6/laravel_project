@@ -31,7 +31,7 @@ class LoginController extends Controller
         if (Auth::check() && Auth::user()->role === 'admin') {
             return '/admin/home'; // Redirect admin to admin dashboard
         } else {
-            return '/homepage'; // Redirect regular user to homepage
+            return '/home'; // Redirect regular user to homepage
         }
     }
 

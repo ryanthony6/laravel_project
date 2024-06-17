@@ -83,7 +83,7 @@
                 <ul class="list-unstyled components">
                     <li class="active">
                         <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
-                            class="d-flex text-white align-items-center gap-2">
+                            class="d-flex text-white align-items-center gap-1">
                             @include('icons/dashboard-layout') Dashboard
                         </a>
                     <li>
