@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="base-url" content="{{ url('/') }}">
     <title>Cahaya Sports | Home </title>
 
     <!-- Lucide Icons -->
@@ -100,8 +101,8 @@
                             class="d-flex text-white align-items-center gap-2">@include('icons/order')
                             Orders</a>
                     </li>
-                    <li>
-                        <a href="#"
+                    <li class="{{ Route::is('admin.reviews') ? 'active' : '' }}">
+                        <a href="{{ route('reviews.index') }}"
                             class="d-flex text-white align-items-center gap-2">@include('icons/comment')
                             Review</a>
                     </li>
@@ -120,6 +121,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+    <script src="{{ asset('js/admin.js') }}"></script>
 </body>
 
 </html>
