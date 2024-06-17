@@ -29,7 +29,11 @@
                             </div>
                             <input type="hidden" name="time_slots" id="time_slots">
                             <input type="hidden" name="price" id="price" value="0">
-                            <button id="book-now-btn" class="btn btn-success w-100" type="submit">Book Now</button>
+
+                            <div class="button-center">
+                                <button id="book-now-btn" type="submit" class="btn btn-success btn-block justify-content-center align-items-center">Book now</button>
+                                <a href={{ route('home') }} type="button" class="btn btn-primary btn-block justify-content-center align-items-center">Back to home</a>
+                            </div>
                         </form>
                         @if ($errors->any())
                             <div class="alert alert-danger mt-3">

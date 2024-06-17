@@ -14,7 +14,7 @@
     .card-header {
         font-size: 24px;
         font-weight: 700;
-        color: #ffffff;
+        color: black;
         border-radius: 10px 10px 0 0;
         padding: 10px 0;
     }
@@ -40,9 +40,15 @@
         color: #2d3436;
     }
 
+    .button-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
     .btn-success {
         font-size: 18px;
-        font-weight: 700;
         background-color: #00b894;
         border: none;
     }

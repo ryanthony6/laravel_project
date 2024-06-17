@@ -14,7 +14,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Apply middleware only to routes that require authentication
 Route::middleware(['auth'])->group(function () {
-    Route::get('/booking', [HomeController::class, 'booking'])->name('booking');
+    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
