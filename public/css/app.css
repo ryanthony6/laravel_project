@@ -6,7 +6,7 @@
     --tertiary-color: #e6ff94;
     --bg-color: #f2f2f6;
     --grey: #666288;
-    --black: #000
+    --black: #000;
 }
 
 body {
@@ -14,12 +14,12 @@ body {
 }
 
 /* Navbar */
-.scroll-nav-active{
+.scroll-nav-active {
     background-color: #fff;
     border-bottom: 1px solid var(--grey);
 }
 
-.text-nav-active{
+.text-nav-active {
     color: #000;
 }
 
@@ -52,8 +52,8 @@ body {
 
 .btn-primary:hover,
 .btn-primary:focus,
-.btn-primary:active{
-    background-color: #005153 !important; 
+.btn-primary:active {
+    background-color: #005153 !important;
     border-color: #005153 !important;
 }
 
@@ -74,6 +74,7 @@ body {
 #testimonials-section {
     background-color: var(--secondary-color);
     min-height: 60vh;
+    padding-top: 1rem;
 }
 
 .gtco-testimonials {
@@ -160,8 +161,12 @@ body {
     min-height: 100vh;
 }
 
-.contact-us-container{
+#field_section,
+#contact-us {
+    padding-top: 5rem;
+}
 
+.contact-us-container {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 5px;
 }
 
@@ -175,14 +180,14 @@ body {
 
 @media (max-width: 768px) {
     .container-hero {
-        padding: 0 2rem; 
+        padding: 0 2rem;
     }
 
     .title-hero {
-        font-size: 2rem; 
+        font-size: 2rem;
     }
 
     .lead {
-        font-size: 1rem; 
+        font-size: 1rem;
     }
 }

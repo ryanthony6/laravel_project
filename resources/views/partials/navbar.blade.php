@@ -1,4 +1,4 @@
-@unless (Route::is('login') || Route::is('register') || Route::is('password.request') || Route::is('profile.index') )
+@unless (Route::is('login') || Route::is('register') || Route::is('password.request') || Route::is('profile.index'))
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container">
@@ -14,13 +14,13 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav ms-auto gap-3">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/') }}">Home</a>
+                        <a class="nav-link active" href="#hero_section">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/about') }}">About</a>
+                        <a class="nav-link active" href="#testimonials-section">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/contact') }}">Contact Us</a>
+                        <a class="nav-link active" href="#contact-us">Contact Us</a>
                     </li>
                 </ul>
 
@@ -41,11 +41,11 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link active dropdown-toggle " href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/ProfilePic.png') }}" 
-                                alt="{{ Auth::user()->image ? 'User Image' : 'Default Image' }}" 
-                                class="rounded-circle" alt="User Image" width="30" height="30" style="margin-right: 10px;">
+                                <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/ProfilePic.png') }}"
+                                    alt="{{ Auth::user()->image ? 'User Image' : 'Default Image' }}" class="rounded-circle"
+                                    alt="User Image" width="30" height="30" style="margin-right: 10px;">
                                 {{ Auth::user()->name }}
                             </a>
 

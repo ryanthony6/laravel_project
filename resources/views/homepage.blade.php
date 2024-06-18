@@ -13,7 +13,7 @@
 
 <section id="field_section">
     <div class="container">
-        <h2 class="text-center pt-5 pb-4">Available Schedule</h2>
+        <h2 class="text-center pb-4">Available Schedule</h2>
             <div class="row">
                 @for ($i = 1; $i <= 6; $i++)
                     <div class="col-md-4 mb-5 mb-md-4">
@@ -62,7 +62,7 @@
 
 <section id="contact-us">
     
-    <h2 class="text-center pt-5 pb-5">Contact Us</h2>
+    <h2 class="text-center pb-5">Contact Us</h2>
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center p-4 bg-white contact-us-container">
             <div class="col-md-6">
