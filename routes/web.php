@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
@@ -43,6 +44,5 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('reviews', ReviewController::class);
 });
 
-Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 
 Auth::routes();

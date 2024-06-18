@@ -45,14 +45,24 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/ProfilePic.png') }}"
                                     alt="{{ Auth::user()->image ? 'User Image' : 'Default Image' }}" class="rounded-circle"
-                                    alt="User Image" width="30" height="30" style="margin-right: 10px;">
+                                    width="30" height="30" style="margin-right: 10px;">
                                 {{ Auth::user()->name }}
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('profile.index') }}">
-                                    {{ __('Edit Profile') }}
-                                </a>
+                                @if (Auth::user()->role !== 'admin')
+                                    <!-- Check if the user is not an admin -->
+                                    <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                        {{ __('Edit Profile') }}
+                                    </a>
+                                @endif
+                                @if (Auth::user()->role === 'admin')
+                                    <!-- Check if the user is an admin -->
+                                    <a class="dropdown-item" href="{{ route('admin.home') }}">
+                                        {{ __('Dashboard') }}
+                                    </a>
+                                @endif
+
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
