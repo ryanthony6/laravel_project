@@ -1,107 +1,65 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="row justify-content-center w-100">
-        <div class="col-md-8 col-lg-6">
-            <div class="card shadow">
-
-                <div class="text-center py-4" style="margin-bottom: -50px;"> <!-- Menyesuaikan margin atas -->
-                    <h3 class="mb-2" style="font-size: 2.5rem; color: #333; font-weight: 100;">Welcome, Hello</h3> <!-- Memindahkan tulisan "Welcome" ke dalam wrapper baru -->
-                </div>
-
-                <div class="card-body p-5">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="mb-4">
-                            <label for="email" class="form-label">{{ __('Email Address') }}</label>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">{{ __('Password') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary btn-block">
-                                {{ __('Login') }}
-                            </button>
-                            @if (Route::has('register'))
-                                <a class="btn btn-outline-primary btn-block" href="{{ route('register') }}">
-                                    {{ __('Register') }}
-                                </a>
-                            @endif
-                        </div>
-
-                        @if (Route::has('password.request'))
-                            <div class="text-center mt-3">
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-9">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="https://images.unsplash.com/photo-1614058585909-031fc6e4f0bb?q=80&w=1892&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                    alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
                             </div>
-                        @endif
-                    </form>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5 text-black">
+
+                                    <form method="POST" action="{{ route('login') }}">
+                                        @csrf
+                                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your
+                                            account</h5>
+
+                                        <div data-mdb-input-init class="form-outline">  
+                                            <input type="email" id="email" name="email"
+                                                class="form-control form-control-lg @error('email') is-invalid @enderror"
+                                                value="{{ old('email') }}"  autofocus />
+                                            <label for="email" class="form-label">Email address</label>
+                                            @error('email')
+                                                <div class="invalid-feedback" role="alert">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+
+                                        <div data-mdb-input-init class="form-outline">
+                                            <input type="password" id="password" name="password"
+                                                class="form-control form-control-lg @error('password') is-invalid @enderror"/>
+                                            <label for="password" class="form-label">Password</label>
+                                            @error('password')
+                                                <div class="invalid-feedback" role="alert">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="pt-1 mb-4">
+                                            <button class="btn btn-dark btn-lg btn-block" style="background-color: #006769;"
+                                                type="submit"> {{ __('Login') }}</button>
+                                        </div>
+
+                                        <a class="small text-muted" href="{{ route('password.request') }}">Forgot
+                                            password?</a>
+                                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a
+                                                href="{{ route('register') }}" style="color: #393f81;">Register here</a></p>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 @endsection
-
-<style>
-    .container {
-        background-color: #f8f9fa;
-    }
-    .card {
-        border-radius: 15px;
-        border: none;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    .card-header {
-        font-weight: bold;
-        border-bottom: none; /* Menghilangkan garis bawah */
-    }
-    .btn-primary {
-        background-color: #007bff;
-        border: none;
-        transition: background-color 0.3s;
-    }
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
-    .btn-outline-primary {
-        border-color: #007bff;
-        color: #007bff;
-        transition: background-color 0.3s, color 0.3s;
-    }
-    .btn-outline-primary:hover {
-        background-color: #007bff;
-        color: white;
-    }
-    .invalid-feedback {
-        display: block;
-    }
-</style>
