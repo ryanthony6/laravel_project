@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
-use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -15,8 +14,7 @@ class ReviewController extends Controller
     {
         $reviews = Review::orderBy('id', 'asc')->paginate(6);
 
-        $visitorReviews = Contact::paginate(10);
-        return view('admin.reviews.reviews', compact('reviews', 'visitorReviews'));
+        return view('admin.reviews.reviews', compact('reviews'));
     }
 
     /**
@@ -32,14 +30,25 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if the number of reviews has reached the limit
+        if (Review::count() >= 6) {
+            return redirect()->route('reviews.index')->with('error', 'You cannot add more than 6 reviews.');
+        }
+
+        // Validate the request
         $request->validate([
             'name' => 'required|string',
             'comment' => 'required|string',
         ]);
+
+        // Create a new review
         Review::create($request->all());
 
-        return redirect()->route('reviews.index');
+        // Redirect to the reviews index page
+        return redirect()->route('reviews.index')->with('success', 'Review added successfully.');
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

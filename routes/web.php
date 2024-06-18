@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\emailReviewController;
 use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
@@ -40,6 +41,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/orders', function () {
         return view('admin.orders');
     })->name('admin.orders');
+
+    Route::get('/displayreview', [emailReviewController::class, 'index'])->name('displayreview.index');
 
     Route::resource('reviews', ReviewController::class);
 });
