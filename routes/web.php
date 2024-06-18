@@ -43,7 +43,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('reviews', ReviewController::class);
 });
 
-Route::get('contact-us', [ContactController::class, 'index']);
 Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 
 Auth::routes();

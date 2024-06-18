@@ -1,13 +1,10 @@
-
-    const textarea = document.getElementById('comment');
-    const charCount = document.getElementById('charCount');
-    
-    textarea.addEventListener('input', function() {
-        const maxLength = parseInt(textarea.getAttribute('maxlength'));
-        const currentLength = textarea.value.length;
-        const charactersLeft = maxLength - currentLength;
-        
-        charCount.textContent = `Characters left: ${charactersLeft}`;
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('textarea').forEach((textarea) => {
+        textarea.addEventListener('input', function () {
+            const maxLength = this.getAttribute('maxlength');
+            const currentLength = this.value.length;
+            const charCount = this.nextElementSibling;
+            charCount.textContent = `Characters left: ${maxLength - currentLength}`;
+        });
     });
-
-    
+});

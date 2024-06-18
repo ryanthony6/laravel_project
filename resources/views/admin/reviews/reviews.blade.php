@@ -16,9 +16,7 @@
 
             <!-- TOMBOL TAMBAH DATA -->
             <div class="pb-3">
-                <h4>
-                    Review from visitors
-                </h4>
+                <h4>Review from visitors</h4>
             </div>
 
             <!-- Table -->
@@ -32,39 +30,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($reviews->isEmpty())
+                    @if ($visitorReviews->isEmpty())
                         <tr>
                             <td colspan="4">Tidak ada data yang tersedia.</td>
                         </tr>
                     @else
-                        <?php $i = $reviews->firstItem(); ?>
-                        {{-- @foreach ($reviews as $review) --}}
+                        <?php $i = $visitorReviews->firstItem(); ?>
+                        @foreach ($visitorReviews as $review)
                             <tr>
-                                <td>1</td>
-                                <td>exoticfire5@gmail.com</td>
-                                <td>Ryan</td>
-                                <td>Tempatnya bagus, orang nya ramah</td>
+                                <td>{{ $i }}</td>
+                                <td>{{ $review->email }}</td>
+                                <td>{{ $review->name }}</td>
+                                <td>{{ $review->message }}</td>
                             </tr>
                             <?php $i++; ?>
-                        {{-- @endforeach --}}
+                        @endforeach
                     @endif
                 </tbody>
             </table>
 
-            {{ $reviews->links() }}
+            {{ $visitorReviews->links() }}
         </div>
         <!-- AKHIR DATA -->
     </main>
-    
+
     <main class="container px-3">
 
         <!-- START DATA -->
         <div class="my-3 p-3 bg-body rounded shadow-sm">
             <!-- FORM PENCARIAN -->
             <div class="pb-3">
-                <h4>
-                    Review to Display
-                </h4>
+                <h4>Review to Display</h4>
             </div>
 
             <!-- TOMBOL TAMBAH DATA -->
@@ -149,9 +145,9 @@
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="jurus" class="col-sm-2 col-form-label"></label>
-                            <div class="col-sm-10"><button type="submit" class="btn btn-primary"
-                                    name="submit">SIMPAN</button></div>
+                            <div class="col-sm-10 offset-sm-2">
+                                <button type="submit" class="btn btn-primary" name="submit">SIMPAN</button>
+                            </div>
                         </div>
                     </form>
                     <!-- AKHIR FORM -->
@@ -191,9 +187,9 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="jurus" class="col-sm-2 col-form-label"></label>
-                                <div class="col-sm-10"><button type="submit" class="btn btn-primary"
-                                        name="submit">SIMPAN</button></div>
+                                <div class="col-sm-10 offset-sm-2">
+                                    <button type="submit" class="btn btn-primary" name="submit">SIMPAN</button>
+                                </div>
                             </div>
                         </form>
                         <!-- AKHIR FORM -->

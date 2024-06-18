@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -13,7 +14,9 @@ class ReviewController extends Controller
     public function index()
     {
         $reviews = Review::orderBy('id', 'asc')->paginate(6);
-        return view('admin.reviews.reviews', compact('reviews'));
+
+        $visitorReviews = Contact::paginate(10);
+        return view('admin.reviews.reviews', compact('reviews', 'visitorReviews'));
     }
 
     /**
