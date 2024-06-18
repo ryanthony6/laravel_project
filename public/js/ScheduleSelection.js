@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.classList.remove('btn-primary');
                 this.classList.add('btn-outline-secondary');
             } else {
+                if (selectedTimes.length >= 5) {
+                    alert('Anda tidak dapat memilih lebih dari 5 slot waktu.');
+                    return;
+                }
                 selectedTimes.push(time);
                 this.classList.remove('btn-outline-secondary');
                 this.classList.add('btn-primary');
