@@ -101,11 +101,21 @@
                             class="d-flex text-white align-items-center gap-2">@include('icons/order')
                             Orders</a>
                     </li>
-                    <li class="{{ Route::is('admin.reviews') ? 'active' : '' }}">
-                        <a href="{{ route('reviews.index') }}"
-                            class="d-flex text-white align-items-center gap-2">@include('icons/comment')
-                            Review</a>
+                    <li>
+                        <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
+                            class="dropdown-toggle text-white align-items-center">
+                            @include('icons/comment') Dashboard
+                        </a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li class="{{ Route::is('displayreview.index') ? 'active' : '' }}">
+                                <a href="{{ route('displayreview.index') }}"> User Reviews</a>
+                            </li>
+                            <li class="{{ Route::is('reviews.index') ? 'active' : '' }}">
+                                <a href="{{ route('reviews.index') }}"><i class="icon li-user"></i> Display Reviews</a>
+                            </li>
+                        </ul>
                     </li>
+                   
 
                 </ul>
             </div>
