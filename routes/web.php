@@ -43,6 +43,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     })->name('admin.orders');
 
     Route::get('/displayreview', [emailReviewController::class, 'index'])->name('displayreview.index');
+    
 
     Route::resource('reviews', ReviewController::class);
 });
