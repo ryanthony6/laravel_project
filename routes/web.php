@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\emailReviewController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\BookingTesController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -23,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
+    Route::get('/bookingtes', [BookingTesController::class, 'index'])->name('bookingtes.index');
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
