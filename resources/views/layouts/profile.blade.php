@@ -25,8 +25,7 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css'>
 
 <!-- Custom CSS -->
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<link href="{{ asset('css/Booking.css') }}" rel="stylesheet">
+<link href="{{ asset('css/profile.css') }}" rel="stylesheet">
 
 <!-- Scripts -->
 {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
@@ -51,7 +50,6 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js'></script>
 
     <!-- Custom Script -->
-    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/profile.js') }}"></script>
 
     <!-- Pop up alert -->
