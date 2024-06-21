@@ -9,6 +9,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\emailReviewController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BookingTesController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -35,6 +36,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.statistics');
     })->name('admin.statistics');
+
+    // User
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/create', [UserController::class, 'store'])->name('users.store');
+    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/delete', [UserController::class, 'delete'])->name('users.delete');
 
     Route::get('/schedules', function () {
         return view('admin.schedules');
