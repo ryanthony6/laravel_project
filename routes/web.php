@@ -43,7 +43,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/create', [UserController::class, 'store'])->name('users.store');
     Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::delete('/delete{id}', [UserController::class, 'destroy'])->name('users.delete');
 
     Route::get('/schedules', function () {
         return view('admin.schedules');

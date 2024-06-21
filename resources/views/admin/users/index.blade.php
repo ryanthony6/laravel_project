@@ -58,7 +58,7 @@
                                         data-bs-target="#edituserModal{{ $user->id }}">
                                         Edit
                                     </button>
-                                    <form action="{{ url('admin/users', $user->id) }}" method="POST" class="d-inline"
+                                    <form  action='{{ route('users.delete', $user->id) }}' method="POST" class="d-inline"
                                         onsubmit="return confirm('Are you sure you want to delete this user?');">
                                         @method('delete')
                                         @csrf
