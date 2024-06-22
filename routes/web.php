@@ -10,6 +10,8 @@ use App\Http\Controllers\emailReviewController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BookingTesController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CheckoutController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -26,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
     Route::get('/bookingtes', [BookingTesController::class, 'index'])->name('bookingtes.index');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
@@ -37,6 +41,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         return view('admin.statistics');
     })->name('admin.statistics');
 
+
+    // User
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/create', [UserController::class, 'store'])->name('users.store');
+    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/delete{id}', [UserController::class, 'destroy'])->name('users.delete');
 
     // Schedules
     Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');

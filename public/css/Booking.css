@@ -1,58 +1,132 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+.court-status {
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin: 2px 0px; 
+    display: inline-block;
+    min-width: 150px;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.available { color: green; }
+.booked { color: red; }
+.time-slot {
+    border-bottom: 1px dashed #ccc;
+    padding: 10px 0;
+}
+.time-slot span {
+    display: inline-block;
+    margin-right: 35px; 
+}
 
-    body {
-        background: #f8f9fa;
-        font-family: 'Roboto', sans-serif;
-    }
+.cardBooking {
+    border: none; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+    overflow: hidden;
+}
 
-    .custom-card {
-        border: none;
-        border-radius: 10px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    }
+.card-header {
+    background-color: #177d00;
+    text-align: center; 
+    color: white;
+    font-size: 22px; 
+    padding: 15px 20px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
 
-    .card-header {
-        font-size: 24px;
-        font-weight: 700;
-        color: black;
-        border-radius: 10px 10px 0 0;
-        padding: 10px 0;
-    }
+.card-body {
+    background-color: #ffffff;
+    padding: 25px; 
+    color: #333; 
+    font-size: 16px; 
+}
 
-    .form-label {
-        font-size: 18px;
-        font-weight: 500;
-        color: #2d3436;
-    }
+.booking-detail{
+    border-left: 5px solid #0e4d00; 
+    padding: 10px;
+    margin-bottom: 15px; 
+}
 
-    .time-slot {
-        font-size: 18px;
-        font-weight: 500;
-        color: #2d3436;
-        background-color: #ffffff;
-        transition: all 0.3s ease;
-    }
+.booking-detail div {
+    margin-bottom: 20px; 
+    border-left: 5px solid #0e4d00; 
+    padding-left: 10px;
+    background-color: #f9f9f9;
+}
 
+.booking-detail {
+    border-left: none; 
+}
 
-    .price-text {
-        font-size: 18px;
-        font-weight: 500;
-        color: #2d3436;
-    }
+.booking-detail p, .summary-line p {
+    margin-bottom: 5px; 
+}
 
-    .button-center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-    }
+.dashed {
+    border-top: 2px dashed #ccc; 
+}
 
-    .btn-success {
-        font-size: 18px;
-        background-color: #00b894;
-        border: none;
-    }
+.checkout-button button {
+    background-color: #24870e; 
+    color: white;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+.checkout-button button:hover {
+    background-color: #0e4502; 
+} 
 
-    .btn-success:hover, .btn-success:focus {
-        background-color: #019875;
-    }
+.selected {
+    background-color: #24870e;
+    color: white;
+}
+
+.unavailable {
+    background-color: #8B0000; 
+    color: #ffffff;
+}
+
+.court-status.available {
+    cursor: pointer; 
+}
+
+.no-details {
+    text-align: center; 
+    padding: 20px; 
+    font-size: 16px; 
+    color: #666;
+    border-left: none !important;
+    background: none;
+}
+
+.day-nav a {
+    padding: 8px 16px;
+    margin: 0 4px;
+    display: inline-block;
+    background-color: #f4f4f4;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.day-nav a:hover {
+    background-color: #ddd;
+    text-decoration: none;
+}
+
+.day-nav a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-bottom: 3px solid #388E3C;
+}
