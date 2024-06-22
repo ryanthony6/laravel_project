@@ -3,31 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Booking;
-use Illuminate\Support\Facades\Auth;
+
+date_default_timezone_set('Asia/Jakarta');
 
 class BookingController extends Controller
 {
-
-    public function index()
+    public function index(Request $request)
     {
-        return view('booking');
-    }
-    public function store(Request $request)
-    {
-        $request->validate([
-            'date' => 'required|date',
-            'time_slots' => 'required|string',
-            'price' => 'required|integer',
-        ]);
+        // Define timeslots from 08:00 to 21:00
+        $timeslots = [];
+        for ($hour = 8; $hour <= 21; $hour++) {
+            $timeslots[] = str_pad($hour, 2, '0', STR_PAD_LEFT) . ':00';
+        }
 
-        $booking = new Booking();
-        $booking->user_name = Auth::user()->name;
-        $booking->date = $request->date;
-        $booking->time_slots = $request->time_slots;
-        $booking->price = $request->price;
-        $booking->save();
+        // Define courts from 1 to 6
+        $courts = range(1, 6);
 
-        return redirect()->back()->with('success', 'Booking successful!');
+        // Generate dates for the next 7 days
+        $dates = [];
+        for ($i = 0; $i < 7; $i++) {
+            $timestamp = strtotime("+$i day");
+            $dates[date('Y-m-d', $timestamp)] = date('D, d M', $timestamp);
+        }
+
+        // Determine the selected date
+        $today = date('Y-m-d');
+        $selectedDate = $request->query('date', $today);
+
+        // Generate full date display
+        $fullDate = date('l, d F Y', strtotime($selectedDate));
+
+        // Check if the selected date is today
+        $isToday = ($selectedDate == $today);
+
+        // Return view with compacted variables
+        return view('booking', compact('timeslots', 'courts', 'dates', 'selectedDate', 'fullDate', 'isToday'));
     }
 }

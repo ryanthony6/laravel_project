@@ -1,52 +1,94 @@
-@extends('layouts.app')
+@extends('layouts.mainlayout')
 
 @section('content')
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6 mb-4">
-                <div class="card custom-card">
-                    <h2 class="card-header text-center">Court 1</h2>
-                    <div class="card-body">
-                        <img src="{{ asset('images/Ss3.png') }}" alt="Gambar Lapangan" class="img-fluid rounded mb-3">
-                        <form method="POST" action="{{ route('booking.store') }}">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="date1" class="form-label">Tanggal:</label>
-                                <input type="date" class="form-control" id="date1" name="date" value="{{ date('Y-m-d') }}">
+    <div class="container mt-5" style="padding-top: 40px;">
+        <div class="day-nav mb-3">
+            @foreach ($dates as $key => $value)
+                <a href="{{ $isToday && $key == date('Y-m-d') ? url('booking') : url('booking?date=' . $key) }}" class="btn btn-link {{ $selectedDate == $key ? 'active' : '' }}">{{ $value }}</a>
+            @endforeach
+        </div>
+        <h1 class="mb-4">{{ $fullDate }}</h1> 
+        
+        <div class="cardBooking">
+            <div class="card-header">
+                Available Courts
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @foreach ($timeslots as $time)
+                        <div class="col-12">
+                            <div class="time-slot">
+                                <span>{{ $time }}</span>
+                                @foreach ($courts as $court)
+                                    <span class="court-status available" data-court-id="{{ $court }}" data-time-slot="{{ $time }}">
+                                        Court {{ $court }}
+                                        Rp 50,000
+                                    </span>
+                                @endforeach
                             </div>
-                            <div class="mb-3">
-                                <label for="time1" class="form-label">Jam main:</label>
-                                <div class="d-flex flex-wrap">
-                                    @for ($i = 7; $i < 22; $i++)
-                                        <button type="button" class="btn btn-outline-secondary time-slot m-1" data-time="{{ $i }}" data-court="1">
-                                            {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}:00 - {{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}:00
-                                        </button>
-                                    @endfor
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <p class="price-text">Harga: Rp <span id="total-price">0</span></p>
-                            </div>
-                            <input type="hidden" name="time_slots" id="time_slots">
-                            <input type="hidden" name="price" id="price" value="0">
-
-                            <div class="button-center">
-                                <button id="book-now-btn" type="submit" class="btn btn-success btn-block justify-content-center align-items-center">Book now</button>
-                                <a href={{ route('home') }} type="button" class="btn btn-primary btn-block justify-content-center align-items-center">Back to home</a>
-                            </div>
-                        </form>
-                        @if ($errors->any())
-                            <div class="alert alert-danger mt-3">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
+
+        <form id="checkout-form" action="/checkout" method="POST">
+            @csrf
+            <input type="hidden" name="booking_details" id="booking_details">
+            <div class="checkout-button mt-4 mb-4">
+                <button type="submit" class="btn-lg btn-block w-100">Checkout</button>
+            </div>
+        </form>
     </div>
+    <script>
+        var fullDate = "{{ $fullDate }}"; 
+        document.addEventListener('DOMContentLoaded', function() {
+            const courts = document.querySelectorAll('.court-status');
+            const checkoutForm = document.getElementById('checkout-form');
+            const bookingDetailsInput = document.getElementById('booking_details');
+            const courtSelections = {};
+
+            function updateBookingDetails() {
+                bookingDetailsInput.value = JSON.stringify(courtSelections);
+            }
+
+            courts.forEach(court => {
+                court.addEventListener('click', function() {
+                    const courtId = this.dataset.courtId;
+                    const timeSlot = this.dataset.timeSlot;
+                    const nextHour = `${parseInt(timeSlot.split(':')[0]) + 1}:00`;
+                    const timeRange = `${timeSlot} - ${nextHour}`;
+
+                    if (!courtSelections[courtId]) {
+                        courtSelections[courtId] = {
+                            times: [],
+                            date: fullDate
+                        };
+                    }
+
+                    if (this.classList.contains('selected')) {
+                        this.classList.remove('selected');
+                        const index = courtSelections[courtId].times.indexOf(timeRange);
+                        if (index > -1) {
+                            courtSelections[courtId].times.splice(index, 1);
+                        }
+                    } else {
+                        if (courtSelections[courtId].times.length < 5) {
+                            this.classList.add('selected');
+                            courtSelections[courtId].times.push(timeRange);
+                        } else {
+                            alert('You can only select a court for a maximum of 5 hours.');
+                        }
+                    }
+
+                    updateBookingDetails();
+                });
+            });
+
+            document.querySelector('.checkout-button button').addEventListener('click', function() {
+                localStorage.setItem('courtSelections', JSON.stringify(courtSelections));
+                window.location.href = '/checkout';
+            });
+        });
+    </script>
 @endsection

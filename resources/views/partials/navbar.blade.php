@@ -14,10 +14,10 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav ms-auto gap-3">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#hero_section">Home</a>
+                        <a class="nav-link active" href="{{ route('home.index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#testimonials-section">About</a>
+                        <a class="nav-link active" href="{{ route('booking.index') }}">Book</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="#contact-us">Contact Us</a>
@@ -81,7 +81,7 @@
     </nav>
 @endunless
 
-@if (Route::is('bookingtes.index'))
+@if (Route::is('booking.index'))
     <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}" style="color: black;">
@@ -96,10 +96,10 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav ms-auto gap-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="#hero_section" style="color: black;">Home</a>
+                        <a class="nav-link" href="{{ route('home.index') }}" style="color: black;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#testimonials-section" style="color: black;">Booking</a>
+                        <a class="nav-link" href="{{ route('booking.index') }}" style="color: black;">Booking</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact-us" style="color: black;">Contact Us</a>

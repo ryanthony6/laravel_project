@@ -9,7 +9,6 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\emailReviewController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\BookingTesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CheckoutController;
 
@@ -17,7 +16,7 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 
 // Apply middleware only to routes that require authentication
 Route::middleware(['auth'])->group(function () {
@@ -27,7 +26,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
-    Route::get('/bookingtes', [BookingTesController::class, 'index'])->name('bookingtes.index');
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 });
