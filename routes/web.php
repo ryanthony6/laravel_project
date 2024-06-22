@@ -42,21 +42,25 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     })->name('admin.statistics');
 
 
-    // User
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/create', [UserController::class, 'store'])->name('users.store');
-    Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/delete{id}', [UserController::class, 'destroy'])->name('users.delete');
+    // User Routes
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+        Route::get('/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/create', [UserController::class, 'store'])->name('users.store');
+        Route::get('/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
+    });
 
-    // Schedules
-    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
-    Route::get('create', [ScheduleController::class, 'create'])->name('schedules.create');
-    Route::post('/store', [ScheduleController::class, 'store'])->name('schedules.store');
-    Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('schedules.edit');
-    Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
-    Route::delete('/delete/{id}', [ScheduleController::class, 'destroy'])->name('schedules.delete');
+    // Schedule Routes
+    Route::prefix('schedules')->group(function () {
+        Route::get('/', [ScheduleController::class, 'index'])->name('schedules.index');
+        Route::get('/create', [ScheduleController::class, 'create'])->name('schedules.create');
+        Route::post('/store', [ScheduleController::class, 'store'])->name('schedules.store');
+        Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('schedules.edit');
+        Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
+        Route::delete('/delete/{id}', [ScheduleController::class, 'destroy'])->name('schedules.delete');
+    });
 
 
     // Orders
@@ -65,7 +69,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     })->name('admin.orders');
 
     Route::get('/displayreview', [emailReviewController::class, 'index'])->name('displayreview.index');
-    
+
 
     Route::resource('reviews', ReviewController::class);
 });
