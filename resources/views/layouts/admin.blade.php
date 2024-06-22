@@ -97,8 +97,8 @@
                     </li>
 
                     </li>
-                    <li class="{{ Route::is('admin.schedules') ? 'active' : '' }}">
-                        <a href="{{ route('admin.schedules') }}"
+                    <li class="{{ Route::is('schedules.index') ? 'active' : '' }}">
+                        <a href="{{ route('schedules.index') }}"
                             class="d-flex text-white align-items-center gap-2">@include('icons/schedule')Schedules</a>
                     </li>
                     <li>
@@ -109,7 +109,7 @@
                     <li>
                         <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle text-white align-items-center">
-                            @include('icons/comment') Dashboard
+                            @include('icons/comment') Comment
                         </a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li class="{{ Route::is('displayreview.index') ? 'active' : '' }}">

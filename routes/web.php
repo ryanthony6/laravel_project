@@ -7,6 +7,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\emailReviewController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BookingTesController;
 use App\Http\Controllers\UserController;
@@ -40,6 +41,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         return view('admin.statistics');
     })->name('admin.statistics');
 
+
     // User
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/create', [UserController::class, 'create'])->name('users.create');
@@ -48,10 +50,16 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/delete{id}', [UserController::class, 'destroy'])->name('users.delete');
 
-    Route::get('/schedules', function () {
-        return view('admin.schedules');
-    })->name('admin.schedules');
+    // Schedules
+    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('create', [ScheduleController::class, 'create'])->name('schedules.create');
+    Route::post('/store', [ScheduleController::class, 'store'])->name('schedules.store');
+    Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('schedules.edit');
+    Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
+    Route::delete('/delete/{id}', [ScheduleController::class, 'destroy'])->name('schedules.delete');
 
+
+    // Orders
     Route::get('/orders', function () {
         return view('admin.orders');
     })->name('admin.orders');
