@@ -75,10 +75,10 @@
 
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="">
+                                        data-bs-target="#editScheduleModal{{ $schedule->id }}">
                                         Edit
                                     </button>
-                                    <form action='' method="POST" class="d-inline"
+                                    <form action='{{ route('schedules.delete', $schedule->id) }}' method="POST" class="d-inline"
                                         onsubmit="return confirm('Are you sure you want to delete this review?');">
                                         @method('delete')
                                         @csrf
@@ -96,4 +96,5 @@
     </main>
 
     @include('admin.schedules.create')
+    @include('admin.schedules.edit')
 @endsection

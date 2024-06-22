@@ -42,13 +42,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
     Route::get('create', [ScheduleController::class, 'create'])->name('schedules.create');
     Route::post('/store', [ScheduleController::class, 'store'])->name('schedules.store');
-    // Route::get('/schedules', [ScheduleController::class, 'edit'])->name('schedule.edit');
-    // Route::get('/schedules', [ScheduleController::class, 'update'])->name('schedule.update');
-    // Route::get('/schedules', [ScheduleController::class, 'create'])->name('schedule.delete');
-
-    
+    Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('schedules.edit');
+    Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
+    Route::delete('/delete/{id}', [ScheduleController::class, 'destroy'])->name('schedules.delete');
 
 
+    // Orders
     Route::get('/orders', function () {
         return view('admin.orders');
     })->name('admin.orders');

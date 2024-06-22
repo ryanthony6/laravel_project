@@ -57,7 +57,7 @@
                                         Edit
                                     </button>
                                     <form action="{{ url('admin/reviews', $review->id) }}" method="POST" class="d-inline"
-                                        onsubmit="return confirm('Are you sure you want to delete this review?');">
+                                        onsubmit="return confirm('Are you sure you want to delete this schedule?');">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
