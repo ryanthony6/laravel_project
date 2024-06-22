@@ -7,6 +7,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\emailReviewController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BookingTesController;
 
@@ -36,9 +37,17 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         return view('admin.statistics');
     })->name('admin.statistics');
 
-    Route::get('/schedules', function () {
-        return view('admin.schedules');
-    })->name('admin.schedules');
+
+    // Schedules
+    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedule.index');
+    Route::get('create', [ScheduleController::class, 'create'])->name('schedule.create');
+    // Route::get('/schedules', [ScheduleController::class, 'store'])->name('schedule.store');
+    // Route::get('/schedules', [ScheduleController::class, 'edit'])->name('schedule.edit');
+    // Route::get('/schedules', [ScheduleController::class, 'update'])->name('schedule.update');
+    // Route::get('/schedules', [ScheduleController::class, 'create'])->name('schedule.delete');
+
+    
+
 
     Route::get('/orders', function () {
         return view('admin.orders');
