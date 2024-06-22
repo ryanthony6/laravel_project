@@ -92,8 +92,8 @@
                     </li>
 
                     </li>
-                    <li class="{{ Route::is('schedule.index') ? 'active' : '' }}">
-                        <a href="{{ route('schedule.index') }}"
+                    <li class="{{ Route::is('schedules.index') ? 'active' : '' }}">
+                        <a href="{{ route('schedules.index') }}"
                             class="d-flex text-white align-items-center gap-2">@include('icons/schedule')Schedules</a>
                     </li>
                     <li>

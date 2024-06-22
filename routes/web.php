@@ -39,9 +39,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
 
 
     // Schedules
-    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedule.index');
-    Route::get('create', [ScheduleController::class, 'create'])->name('schedule.create');
-    // Route::get('/schedules', [ScheduleController::class, 'store'])->name('schedule.store');
+    Route::get('/schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('create', [ScheduleController::class, 'create'])->name('schedules.create');
+    Route::post('/store', [ScheduleController::class, 'store'])->name('schedules.store');
     // Route::get('/schedules', [ScheduleController::class, 'edit'])->name('schedule.edit');
     // Route::get('/schedules', [ScheduleController::class, 'update'])->name('schedule.update');
     // Route::get('/schedules', [ScheduleController::class, 'create'])->name('schedule.delete');

@@ -21,6 +21,14 @@
                 <h4>Schedule to Display</h4>
             </div>
 
+            <div class="pb-3">
+                <label for="tanggal">Pilih tanggal:</label>
+                <form action="{{ route('schedules.index') }}" method="GET">
+                    <input type="date" id="tanggal" name="tanggal" value="{{ request('tanggal') }}" min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+1 week')) }}">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </form>
+            </div>
+
             <!-- TOMBOL TAMBAH DATA -->
             <div class="pb-3">
                 <!-- Button trigger modal -->
@@ -41,39 +49,51 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($schedules as $index => $schedule)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $schedule['court'] }}</td>
-                            <td>{{ $schedule['price'] }}</td>
-                            <td>
-                                @foreach ($schedule['schedules'] as $time)
-                                    <span class="badge bg-primary">{{ $time }}</span>
-                                @endforeach
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editScheduleModal">
-                                    Edit
-                                </button>
-                                <form action="" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this schedule?');">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
+                    @if ($schedules->isEmpty())
                         <tr>
                             <td colspan="5">Tidak ada data yang tersedia.</td>
                         </tr>
-                    @endforelse
+                    @else
+                        <?php $i = $schedules->firstItem(); ?>
+                        @foreach ($schedules as $schedule)
+                            <tr>
+                                <td>{{ $i }}</td>
+                                <td>{{ $schedule->court }}</td>
+                                <td>{{ $schedule->price }}</td>
+                                <td>
+                                    @php
+                                        $scheduleArray = json_decode($schedule->schedule);
+                                    @endphp
+                                    @if (is_array($scheduleArray))
+                                        @foreach ($scheduleArray as $item)
+                                            <span class="badge bg-primary">{{ $item }}</span>
+                                        @endforeach
+                                    @else
+                                        <span class="badge bg-primary">{{ $schedule->schedule }}</span>
+                                    @endif
+                                </td>
+
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="">
+                                        Edit
+                                    </button>
+                                    <form action='' method="POST" class="d-inline"
+                                        onsubmit="return confirm('Are you sure you want to delete this review?');">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
         <!-- AKHIR DATA -->
     </main>
 
-    {{-- @include('admin.schedules.create') --}}
+    @include('admin.schedules.create')
 @endsection
