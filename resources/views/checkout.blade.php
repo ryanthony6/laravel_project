@@ -376,7 +376,7 @@
                     totalCost += price;
 
                     paymentDetails.innerHTML += `<div class="booking-detail">
-                        <h4>Court ${courtId}</h4>
+                        <h4>${courtId}</h4>
                         <p>Date: ${date}</p>
                         <p>Time: ${times.join(', ')}</p>
                         <p>Price: Rp ${price.toLocaleString()}</p>

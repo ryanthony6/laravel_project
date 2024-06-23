@@ -2,30 +2,37 @@
 
 @section('content')
     <div class="container mt-5" style="padding-top: 40px;">
-        <div class="day-nav mb-3">
+        <div class="day-nav mb-3 d-flex justify-content-start">
             @foreach ($dates as $key => $value)
                 <a href="{{ $isToday && $key == date('Y-m-d') ? url('booking') : url('booking?date=' . $key) }}" class="btn btn-link {{ $selectedDate == $key ? 'active' : '' }}">{{ $value }}</a>
             @endforeach
         </div>
         <h1 class="mb-4">{{ $fullDate }}</h1> 
         
-        <div class="cardBooking">
-            <div class="card-header">
+        <div class="card cardBooking mx-auto" style="max-width: 1500px;">
+            <div class="card-header text-center">
                 Available Courts
             </div>
             <div class="card-body">
                 <div class="row">
-                    @foreach ($timeslots as $time)
+                    @foreach ($timeslots as $time => $courts)
                         <div class="col-12">
-                            <div class="time-slot">
-                                <span>{{ $time }}</span>
-                                @foreach ($courts as $court)
-                                    <span class="court-status available" data-court-id="{{ $court }}" data-time-slot="{{ $time }}">
-                                        Court {{ $court }}
-                                        Rp 50,000
-                                    </span>
+                            <div class="time-slot d-flex align-items-center">
+                                <span class="time-label">{{ $time }}</span>
+                                @foreach ($allPossibleCourts as $court)
+                                    @if ($courts[$court]['available'])
+                                        <span class="court-status available flex-fill text-center" data-court-id="{{ $courts[$court]['court'] }}" data-time-slot="{{ $time }}">
+                                            {{ $courts[$court]['court'] }}
+                                            Rp {{ number_format($courts[$court]['price'], 0, ',', '.') }}
+                                        </span>
+                                    @else
+                                        <span class="court-status unavailable flex-fill text-center">
+                                            {{ $courts[$court]['court'] }} not available
+                                        </span>
+                                    @endif
                                 @endforeach
                             </div>
+                            <hr class="dotted-line">
                         </div>
                     @endforeach
                 </div>
@@ -36,14 +43,74 @@
             @csrf
             <input type="hidden" name="booking_details" id="booking_details">
             <div class="checkout-button mt-4 mb-4">
-                <button type="submit" class="btn-lg btn-block w-100">Checkout</button>
+                <button type="submit" class="btn btn-success btn-lg btn-block w-100">Checkout</button>
             </div>
         </form>
     </div>
+    <style>
+        .day-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .day-nav a {
+            margin: 0 5px;
+        }
+        .day-nav a.active {
+            font-weight: bold;
+            color: #28a745;
+        }
+        .time-slot {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .time-label {
+            width: 60px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        .court-status {
+            padding: 10px;
+            border-radius: 20px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            flex: 1;
+            max-width: 185px;
+            min-width: 185px;
+            box-sizing: border-box;
+        }
+        .court-status.available {
+            background-color: #f8f9fa;
+            color: #000;
+            cursor: pointer;
+        }
+        .court-status.unavailable {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .court-status.selected {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+        .dotted-line {
+            border-top: 1px dotted #ccc;
+            margin: 10px 0;
+        }
+        .checkout-button button {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+
+        .dotted-line {
+            border: none;
+            border-top: 2px dotted black;
+        }
+    </style>
     <script>
         var fullDate = "{{ $fullDate }}"; 
         document.addEventListener('DOMContentLoaded', function() {
-            const courts = document.querySelectorAll('.court-status');
+            const courts = document.querySelectorAll('.court-status.available');
             const checkoutForm = document.getElementById('checkout-form');
             const bookingDetailsInput = document.getElementById('booking_details');
             const courtSelections = {};
