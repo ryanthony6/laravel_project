@@ -47,7 +47,7 @@
                                     <div class="col-3">
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" name="schedule[]"
-                                                id="schedule-{{ $time }}" value="{{ $time }}"
+                                                id="schedule-{{ $time }}" value="{{ $time }}">
                                                 {{ in_array($time, $currentSchedule) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="schedule-{{ $time }}">{{ $time }}</label>
                                         </div>

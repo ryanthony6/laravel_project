@@ -9,12 +9,22 @@ class ScheduleController extends Controller
 {
     public function index(Request $request)
     {
-        $tanggal = $request->input('tanggal', date('Y-m-d'));
-        $schedules = Schedule::where('date', $tanggal)
-            ->orderBy('court', 'asc')
-            ->paginate(10);
+        $query = Schedule::query();
 
-        return view('admin.schedules.index', compact('schedules', 'tanggal'));
+        // Filter berdasarkan tanggal jika ada
+        if ($request->has('tanggal')) {
+            $query->whereDate('schedule', $request->tanggal);
+        }
+
+        // Mengelompokkan data berdasarkan tanggal dan lapangan
+        $schedules = $query->orderBy('schedule', 'asc')->get()
+            ->groupBy(function($schedule) {
+                return (new \DateTime($schedule->schedule))->format('Y-m-d');
+            })->map(function($dateGroup) {
+                return $dateGroup->groupBy('court');
+            });
+
+        return view('admin.schedules.index', compact('schedules'));
     }
 
     public function create()
@@ -24,33 +34,33 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data
+        // Validasi input
         $request->validate([
-            'court' => 'required|integer|min:1|max:6',
+            'court' => 'required|integer|between:1,6',
             'price' => 'required|numeric',
-            'date' => 'required|date_format:Y-m-d',
-            'schedule' => 'required|array', // Sesuaikan dengan struktur data schedule yang digunakan
+            'schedule_date' => 'required|date',
+            'hours' => 'required|array',
+            'hours.*' => 'integer|between:10,22', // Memastikan jam antara 8 dan 16
         ]);
 
-        // Memeriksa apakah jadwal untuk lapangan dan tanggal yang sama sudah ada
-        $existingSchedule = Schedule::where('court', $request->court)
-            ->where('date', $request->date)
-            ->exists();
+        $court = $request->input('court');
+        $price = $request->input('price');
+        $scheduleDate = $request->input('schedule_date');
+        $hours = $request->input('hours');
 
-        // Jika jadwal sudah ada, kembalikan response error
-        if ($existingSchedule) {
-            return back()->with('error', 'Jadwal untuk lapangan nomor ' . $request->court . ' pada tanggal ' . $request->date . ' sudah ada.');
+        // Simpan jadwal untuk setiap jam yang dipilih
+        foreach ($hours as $hour) {
+            $scheduleDateTime = sprintf('%s %02d:00:00', $scheduleDate, $hour);
+
+            $schedule = new Schedule();
+            $schedule->court = $court;
+            $schedule->price = $price;
+            $schedule->schedule = $scheduleDateTime;
+            $schedule->status = 'available'; // Atau status yang sesuai
+            $schedule->save();
         }
 
-        // Simpan data baru
-        $schedule = new Schedule();
-        $schedule->court = $request->court;
-        $schedule->price = $request->price;
-        $schedule->date = $request->date;
-        $schedule->schedule = json_encode($request->schedule); // Sesuaikan dengan struktur data schedule yang digunakan
-        $schedule->save();
-
-        return redirect()->route('schedules.index')->with('success', 'Jadwal berhasil disimpan.');
+        return redirect()->route('schedules.index')->with('success', 'Jadwal berhasil disimpan!');
     }
 
     public function edit($id)
@@ -63,32 +73,34 @@ class ScheduleController extends Controller
     {
         // Validasi data
         $request->validate([
-            'court' => 'required|integer|min:1|max:6',
+            'court' => 'required|integer|between:1,6',
             'price' => 'required|numeric',
-            'date' => 'required|date_format:Y-m-d',
-            'schedule' => 'required|array', // Sesuaikan dengan struktur data schedule yang digunakan
+            'schedule_date' => 'required|date',
+            'hours' => 'required|array',
+            'hours.*' => 'integer|between:8,16', // Memastikan jam antara 8 dan 16
         ]);
 
-        // Cari jadwal berdasarkan ID
-        $schedule = Schedule::findOrFail($id);
+        $court = $request->input('court');
+        $price = $request->input('price');
+        $scheduleDate = $request->input('schedule_date');
+        $hours = $request->input('hours');
 
-        // Memeriksa apakah jadwal untuk lapangan dan tanggal yang sama sudah ada, kecuali untuk jadwal yang sedang diedit
-        $existingSchedule = Schedule::where('court', $request->court)
-            ->where('date', $request->date)
-            ->where('id', '!=', $id) // Exclude jadwal yang sedang diedit
-            ->exists();
+        // Hapus jadwal lama
+        Schedule::where('court', $court)
+            ->whereDate('schedule', $scheduleDate)
+            ->delete();
 
-        // Jika jadwal sudah ada, kembalikan response error
-        if ($existingSchedule) {
-            return back()->with('error', 'Jadwal untuk lapangan nomor ' . $request->court . ' pada tanggal ' . $request->date . ' sudah ada.');
+        // Simpan jadwal baru untuk setiap jam yang dipilih
+        foreach ($hours as $hour) {
+            $scheduleDateTime = sprintf('%s %02d:00:00', $scheduleDate, $hour);
+
+            $schedule = Schedule::findOrFail($id);
+            $schedule->court = $court;
+            $schedule->price = $price;
+            $schedule->schedule = $scheduleDateTime;
+            $schedule->status = 'available'; // Atau status yang sesuai
+            $schedule->save();
         }
-
-        // Update data jadwal
-        $schedule->court = $request->court;
-        $schedule->price = $request->price;
-        $schedule->date = $request->date;
-        $schedule->schedule = json_encode($request->schedule); // Sesuaikan dengan struktur data schedule yang digunakan
-        $schedule->save();
 
         return redirect()->route('schedules.index')->with('success', 'Jadwal berhasil diperbarui.');
     }

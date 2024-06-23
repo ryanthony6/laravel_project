@@ -16,6 +16,7 @@
                     {{ session('success') }}
                 </div>
             @endif
+
             <!-- FORM PENCARIAN -->
             <div class="pb-3">
                 <h4>Schedule to Display</h4>
@@ -24,7 +25,8 @@
             <div class="pb-3">
                 <label for="tanggal">Pilih tanggal:</label>
                 <form action="{{ route('schedules.index') }}" method="GET">
-                    <input type="date" id="tanggal" name="tanggal" value="{{ request('tanggal') }}" min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+1 week')) }}">
+                    <input type="date" id="tanggal" name="tanggal" value="{{ request('tanggal') }}"
+                        min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+1 week')) }}">
                     <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
             </div>
@@ -41,60 +43,60 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="col-md-1">No.</th>
-                        <th class="col-md-2">Court</th>
-                        <th class="col-md-2">Price</th>
-                        <th class="col-md-2">Schedules</th>
-                        <th class="col-md-2">Action</th>
+                        <th>No.</th>
+                        <th>Court</th>
+                        <th>Price</th>
+                        <th>Schedules</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($schedules->isEmpty())
-                        <tr>
-                            <td colspan="5">Tidak ada data yang tersedia.</td>
-                        </tr>
-                    @else
-                        <?php $i = $schedules->firstItem(); ?>
-                        @foreach ($schedules as $schedule)
+                    @php
+                        $counter = 1;
+                    @endphp
+                    @forelse ($schedules as $date => $courts)
+                        @foreach ($courts as $court => $scheduleGroup)
                             <tr>
-                                <td>{{ $i }}</td>
-                                <td>{{ $schedule->court }}</td>
-                                <td>{{ $schedule->price }}</td>
+                                <td>{{ $counter++ }}</td>
+                                <td>{{ $court }}</td>
+                                <td>{{ $scheduleGroup->first()->price }}</td>
                                 <td>
-                                    @php
-                                        $scheduleArray = json_decode($schedule->schedule);
-                                    @endphp
-                                    @if (is_array($scheduleArray))
-                                        @foreach ($scheduleArray as $item)
-                                            <span class="badge bg-primary">{{ $item }}</span>
-                                        @endforeach
-                                    @else
-                                        <span class="badge bg-primary">{{ $schedule->schedule }}</span>
-                                    @endif
+                                    @foreach ($scheduleGroup as $schedule)
+                                        @php
+                                            $dateTime = new DateTime($schedule->schedule);
+                                            $time = $dateTime->format('H:i');
+                                        @endphp
+                                        <span class="badge bg-primary">{{ $time }}</span>
+                                    @endforeach
                                 </td>
-
                                 <td>
+                                    <!-- Aksi untuk setiap kelompok jadwal -->
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#editScheduleModal{{ $schedule->id }}">
                                         Edit
                                     </button>
-                                    <form action='{{ route('schedules.delete', $schedule->id) }}' method="POST" class="d-inline"
-                                        onsubmit="return confirm('Are you sure you want to delete this review?');">
+                                    <form action='{{ route('schedules.delete', $schedule->id) }}' method="POST"
+                                        class="d-inline"
+                                        onsubmit="return confirm('Are you sure you want to delete this schedule?');">
                                         @method('delete')
                                         @csrf
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
                             </tr>
-                            <?php $i++; ?>
                         @endforeach
-                    @endif
+                    @empty
+                        <tr>
+                            <td colspan="5">Tidak ada data yang tersedia.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
         <!-- AKHIR DATA -->
     </main>
 
+
     @include('admin.schedules.create')
-    @include('admin.schedules.edit')
+    {{-- @include('admin.schedules.edit') --}}
 @endsection

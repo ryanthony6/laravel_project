@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('schedules', function (Blueprint $table) {
-           $table->id();
-            $table->integer('court');
+            $table->id();
+            $table->unsignedInteger('court');
             $table->decimal('price', 10, 2); 
-            $table->string('schedule'); 
-            $table->string('date');
+            $table->dateTime('schedule');
+            $table->enum('status', ['available', 'booked', 'not_available'])->default('available');
             $table->timestamps();
             $table->unique(['court', 'date']);
         });
+        
     }
 
     /**
@@ -30,3 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('schedules');
     }
 };
+

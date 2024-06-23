@@ -13,6 +13,6 @@ class Schedule extends Model
         'court',
         'price',
         'schedule',
-        'date'
+        'status'
     ];
 }
