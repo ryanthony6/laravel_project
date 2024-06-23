@@ -10,7 +10,7 @@ use App\Http\Controllers\emailReviewController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -26,8 +26,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout', [PaymentController::class, 'getPayments'])->name('checkout');
+    Route::post('/checkout', [PaymentController::class, 'getPayments'])->name('checkout.store');
+
+    Route::post('/api/payment-methods', [PaymentController::class, 'store']);
+    Route::post('/payments', [PaymentController::class, 'store']);
+    Route::post('/delete-payment-method', [PaymentController::class, 'delete'])->name('payment.delete');
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
