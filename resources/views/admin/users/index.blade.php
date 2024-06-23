@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 
+<style>
+    .dt-length .dt-input {
+        margin-right: 10px !important;
+    }
+</style>
 
 @section('content')
     <main class="container px-3">
