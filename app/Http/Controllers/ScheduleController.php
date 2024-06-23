@@ -16,13 +16,17 @@ class ScheduleController extends Controller
             $query->whereDate('schedule', $request->tanggal);
         }
 
-        // Mengelompokkan data berdasarkan tanggal dan lapangan
-        $schedules = $query->orderBy('schedule', 'asc')->get()
-            ->groupBy(function($schedule) {
-                return (new \DateTime($schedule->schedule))->format('Y-m-d');
-            })->map(function($dateGroup) {
-                return $dateGroup->groupBy('court');
+        $schedules = $query->orderBy('court', 'asc')
+        ->get()
+        ->groupBy(function ($schedule) {
+            return (new \DateTime($schedule->schedule))->format('Y-m-d');
+        })
+        ->map(function ($dateGroup) {
+            return $dateGroup->groupBy('court')->map(function ($courtGroup) {
+                return $courtGroup->sortBy('schedule');
             });
+        });
+    
 
         return view('admin.schedules.index', compact('schedules'));
     }
@@ -48,6 +52,15 @@ class ScheduleController extends Controller
         $scheduleDate = $request->input('schedule_date');
         $hours = $request->input('hours');
 
+        // Memeriksa apakah jadwal untuk lapangan dan tanggal yang sama sudah ada
+        $existingSchedule = Schedule::where('court', $court)
+            ->whereDate('schedule', $scheduleDate)
+            ->exists();
+
+        if ($existingSchedule) {
+            return redirect()->route('schedules.index')->with('error', 'Jadwal untuk lapangan nomor ' . $court . ' pada tanggal ' . $scheduleDate . ' sudah ada.');
+        }
+
         // Simpan jadwal untuk setiap jam yang dipilih
         foreach ($hours as $hour) {
             $scheduleDateTime = sprintf('%s %02d:00:00', $scheduleDate, $hour);
@@ -62,6 +75,7 @@ class ScheduleController extends Controller
 
         return redirect()->route('schedules.index')->with('success', 'Jadwal berhasil disimpan!');
     }
+
 
     public function edit($id)
     {
@@ -105,12 +119,22 @@ class ScheduleController extends Controller
         return redirect()->route('schedules.index')->with('success', 'Jadwal berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $schedule = Schedule::findOrFail($id); // Cari jadwal berdasarkan ID
-
-        $schedule->delete(); // Hapus jadwal dari database
-
-        return redirect()->route('schedules.index')->with('success', 'Jadwal berhasil dihapus.');
+        // Validasi input
+        $request->validate([
+            'court' => 'required|integer|between:1,6',
+            'schedule_date' => 'required|date',
+        ]);
+    
+        $court = $request->input('court');
+        $scheduleDate = $request->input('schedule_date');
+    
+        // Hapus semua jadwal yang sesuai dengan lapangan dan tanggal tertentu
+        Schedule::where('court', $court)
+                ->whereDate('schedule', $scheduleDate)
+                ->delete();
+    
+        return redirect()->route('schedules.index')->with('success', 'Semua jadwal untuk lapangan nomor ' . $court . ' pada tanggal ' . $scheduleDate . ' berhasil dihapus.');
     }
 }

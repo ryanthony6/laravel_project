@@ -18,7 +18,7 @@ return new class extends Migration
             $table->dateTime('schedule');
             $table->enum('status', ['available', 'booked', 'not_available'])->default('available');
             $table->timestamps();
-            $table->unique(['court', 'date']);
+            $table->unique(['court', 'schedule']);
         });
         
     }

@@ -24,7 +24,8 @@
 
                     <div class="form-group">
                         <label for="schedule_date">Tanggal:</label>
-                        <input type="date" id="schedule_date" name="schedule_date" class="form-control" required>
+                        <input type="date" id="schedule_date" name="schedule_date" class="form-control" required
+                            min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+1 week')) }}">
                     </div>
 
                     <div class="form-group">
@@ -33,14 +34,16 @@
                             @foreach (range(10, 22) as $hour)
                                 <div class="col-3 mb-2"> <!-- Setiap kolom memiliki margin bottom 2 -->
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="hour_{{ $hour }}" name="hours[]" value="{{ $hour }}">
-                                        <label class="form-check-label" for="hour_{{ $hour }}">{{ sprintf('%02d', $hour) }}:00</label>
+                                        <input type="checkbox" class="form-check-input" id="hour_{{ $hour }}"
+                                            name="hours[]" value="{{ $hour }}">
+                                        <label class="form-check-label"
+                                            for="hour_{{ $hour }}">{{ sprintf('%02d', $hour) }}:00</label>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
                 <!-- AKHIR FORM -->
