@@ -15,6 +15,10 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- Custom CSS -->
+
+    <link href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+
+    
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 
@@ -96,6 +100,11 @@
                             @include('icons/user') Users</a>
                     </li>
 
+                    <li class="{{ Route::is('history.index') ? 'active' : '' }}">
+                        <a href="{{ route('history.index') }}" class="d-flex text-white align-items-center gap-2">
+                            @include('icons/history') History</a>
+                    </li>
+
                     </li>
                     <li class="{{ Route::is('schedules.index') ? 'active' : '' }}">
                         <a href="{{ route('schedules.index') }}"
@@ -106,6 +115,7 @@
                             class="d-flex text-white align-items-center gap-2">@include('icons/order')
                             Orders</a>
                     </li>
+                    
                     <li>
                         <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle text-white align-items-center">
@@ -136,6 +146,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable();
+        });
+    </script>
+
     <script src="{{ asset('js/admin.js') }}"></script>
 </body>
 

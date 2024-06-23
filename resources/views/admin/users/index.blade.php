@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
+
 @section('content')
     <main class="container px-3">
 
@@ -30,7 +31,8 @@
             </div>
 
             <!-- Table -->
-            <table class="table table-striped">
+            <div class="container mt-3"></div>
+                <table class="table table-striped" id="dataTable">
                 <thead>
                     <tr>
                         <th class="col-md-1">No.</th>
@@ -70,7 +72,8 @@
                         @endforeach
                     @endif
                 </tbody>
-            </table>
+                </table>
+            </div>
             
         </div>
         <!-- AKHIR DATA -->
