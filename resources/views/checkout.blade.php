@@ -154,7 +154,6 @@
             background-color: #e2e2e2;
         }
 
-
         .modal-footer {
             display: flex;
             justify-content: space-between;
@@ -276,6 +275,8 @@
     <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+            <form id="bookingForm" method="POST" action="{{ route('booking.store') }}">
+                @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="paymentModalLabel">Select Payment Method</h5>
                 </div>
@@ -312,7 +313,13 @@
                     <hr class="dashed">
                     <div class="price" id="totalAmount">Total: </div>
                 </div>
-                <button type="button" class="pay-button btn btn-success">Pay Now</button>
+                <input type="hidden" name="user_name" value="{{ Auth::user()->name }}">
+                <input type="hidden" name="court_id" id="courtId">
+                <input type="hidden" name="date" id="bookingDate">
+                <input type="hidden" name="time" id="bookingTime">
+                <input type="hidden" name="total_price" id="totalPrice">
+                <button type="submit" class="pay-button btn btn-success">Pay Now</button>
+            </form>
             </div>
         </div>
     </div>
@@ -328,23 +335,18 @@
                 </div>
                 <div class="modal-body">
                     <p>Select payment method:</p>
-                   
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="gopayMethod" value="gopay">
-                            <label class="form-check-label" for="gopayMethod">
-                                Gopay
-                            </label>
-                        </div>
-                    
-                   
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="ovoMethod" value="ovo">
-                            <label class="form-check-label" for="ovoMethod">
-                                OVO
-                            </label>
-                        </div>
-                
-
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="gopayMethod" value="gopay">
+                        <label class="form-check-label" for="gopayMethod">
+                            Gopay
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="ovoMethod" value="ovo">
+                        <label class="form-check-label" for="ovoMethod">
+                            OVO
+                        </label>
+                    </div>
                     <div class="form-group mt-3" id="phoneNumberInput">
                         <label for="phoneNumber">Phone Number:</label>
                         <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
@@ -353,7 +355,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="confirmPaymentMethod">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    
                 </div>
             </div>
         </div>
@@ -369,117 +370,185 @@
             const summaryDetails = document.getElementById('summary-details');
             let totalCost = 0;
 
-            Object.keys(courtSelections).forEach(courtId => {
-                const { times, date } = courtSelections[courtId];
-                if (times.length > 0) {
-                    const price = times.length * 50000;
-                    totalCost += price;
+            if (courtSelections && Object.keys(courtSelections).length > 0) {
+                Object.keys(courtSelections).forEach(courtId => {
+                    const { times, date } = courtSelections[courtId];
+                    if (times.length > 0) {
+                        const price = times.length * 50000;
+                        totalCost += price;
 
-                    paymentDetails.innerHTML += `<div class="booking-detail">
-                        <h4>${courtId}</h4>
-                        <p>Date: ${date}</p>
-                        <p>Time: ${times.join(', ')}</p>
-                        <p>Price: Rp ${price.toLocaleString()}</p>
-                    </div>`;
+                        paymentDetails.innerHTML += `<div class="booking-detail">
+                            <h4>${courtId}</h4>
+                            <p>Date: ${date}</p>
+                            <p>Time: ${times.join(', ')}</p>
+                            <p>Price: Rp ${price.toLocaleString()}</p>
+                        </div>`;
+                    }
+                });
+
+                if (totalCost > 0) {
+                    const tax = totalCost * 0.10;
+                    const totalIncludingTax = totalCost + tax;
+                    summaryDetails.innerHTML = `<p>Court Total: Rp ${totalCost.toLocaleString()}</p>
+                                                <p>Tax 10%: Rp ${tax.toLocaleString()}</p>
+                                                <hr class="dashed">
+                                                <p>Total: Rp ${totalIncludingTax.toLocaleString()}</p>`;
+
+                    document.querySelector('.price').innerText = `Total: Rp ${totalIncludingTax.toLocaleString()}`;
+                    document.getElementById('totalPrice').value = totalIncludingTax;
+                } else {
+                    paymentDetails.innerHTML = '<div class="no-details">No payment details</div>';
+                    summaryDetails.innerHTML = '<div class="no-details">No summary details</div>';
                 }
-            });
-
-            if (totalCost > 0) {
-                const tax = totalCost * 0.10;
-                const totalIncludingTax = totalCost + tax;
-                summaryDetails.innerHTML = `<p>Court Total: Rp ${totalCost.toLocaleString()}</p>
-                                            <p>Tax 10%: Rp ${tax.toLocaleString()}</p>
-                                            <hr class="dashed">
-                                            <p>Total: Rp ${totalIncludingTax.toLocaleString()}</p>`;
-
-                document.querySelector('.price').innerText = `Total: Rp ${totalIncludingTax.toLocaleString()}`;
             } else {
                 paymentDetails.innerHTML = '<div class="no-details">No payment details</div>';
-                summaryDetails.innerHTML = '<div class="no-details">No payment details</div>';
+                summaryDetails.innerHTML = '<div class="no-details">No summary details</div>';
+            }
+
+            // Set hidden input values
+            if (courtSelections && Object.keys(courtSelections).length > 0) {
+                document.getElementById('courtId').value = Object.keys(courtSelections).join(', ');
+                document.getElementById('bookingDate').value = courtSelections[Object.keys(courtSelections)[0]].date;
+                document.getElementById('bookingTime').value = courtSelections[Object.keys(courtSelections)[0]].times.join(', ');
             }
         });
 
         $(document).ready(function() {
-        $('.add-payment').click(function() {
-            $('#addPaymentModal').modal('show');
-        });
+            $('.add-payment').click(function() {
+                $('#addPaymentModal').modal('show');
+            });
 
-        $('#confirmPaymentMethod').click(function() {
-            var selectedMethod = $('input[name=paymentMethod]:checked').val();
-            var phoneNumber = $('#phoneNumber').val();
+            $('#confirmPaymentMethod').click(function() {
+                var selectedMethod = $('input[name=paymentMethod]:checked').val();
+                var phoneNumber = $('#phoneNumber').val();
 
-            if (!phoneNumber) {
-                alert('Please enter your phone number.');
-                return;
-            }
+                if (!phoneNumber) {
+                    alert('Please enter your phone number.');
+                    return;
+                }
 
-            // Kirim data ke server
-            $.ajax({
-                url: '/payments', // Pastikan URL ini sesuai dengan route yang Anda definisikan
-                method: 'POST',
-                data: {
-                    payment_method: selectedMethod,
-                    phone_number: phoneNumber
-                },
-                success: function(response) {
-                    alert(response.message);
-                    $('#addPaymentModal').modal('hide');
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    if (xhr.status === 400) {
-                        alert(xhr.responseJSON.message); // Tampilkan pesan kesalahan dari server
-                    } else {
-                        alert('Error saving payment method: ' + xhr.responseText);
+                // Kirim data ke server
+                $.ajax({
+                    url: '/payments', // Pastikan URL ini sesuai dengan route yang Anda definisikan
+                    method: 'POST',
+                    data: {
+                        payment_method: selectedMethod,
+                        phone_number: phoneNumber
+                    },
+                    success: function(response) {
+                        alert(response.message);
+                        $('#addPaymentModal').modal('hide');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        if (xhr.status === 400) {
+                            alert(xhr.responseJSON.message); // Tampilkan pesan kesalahan dari server
+                        } else {
+                            alert('Error saving payment method: ' + xhr.responseText);
+                        }
                     }
+                });
+            });
+
+            // Adjust modal content based on selected payment method
+            $('input[name=paymentMethod]').change(function() {
+                var selectedMethod = $(this).val();
+                if (selectedMethod === 'ovo') {
+                    $('#phoneNumberInput label').text('OVO Phone Number:');
+                    $('#phoneNumber').attr('placeholder', 'Enter your OVO phone number');
+                } else if (selectedMethod === 'gopay') {
+                    $('#phoneNumberInput label').text('Gopay Phone Number:');
+                    $('#phoneNumber').attr('placeholder', 'Enter your Gopay phone number');
+                }
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
         });
 
-        // Adjust modal content based on selected payment method
-        $('input[name=paymentMethod]').change(function() {
-            var selectedMethod = $(this).val();
-            if (selectedMethod === 'ovo') {
-                $('#phoneNumberInput label').text('OVO Phone Number:');
-                $('#phoneNumber').attr('placeholder', 'Enter your OVO phone number');
-            } else if (selectedMethod === 'gopay') {
-                $('#phoneNumberInput label').text('Gopay Phone Number:');
-                $('#phoneNumber').attr('placeholder', 'Enter your Gopay phone number');
-            }
-        });
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    });
-
-    function selectPaymentMethod(element, method) {
-        document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
-        element.classList.add('selected');
-        document.getElementById(method).checked = true;
-    }
-
-    function deletePaymentMethod(paymentMethod, event) {
-        event.stopPropagation(); // Stop bubbling to prevent selecting the payment method
-        if (confirm('Are you sure you want to delete this payment method?')) {
-            $.ajax({
-                url: '{{ route('payment.delete') }}', // Gunakan helper route untuk menghindari hardcoding URL
-                method: 'POST',
-                data: {
-                    payment_method: paymentMethod
-                },
-                success: function(response) {
-                    alert(response.message);
-                    location.reload(); // Reload the page to update the list
-                },
-                error: function(xhr) {
-                    alert('Error deleting payment method: ' + xhr.responseText);
-                }
-            });
+        function selectPaymentMethod(element, method) {
+            document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById(method).checked = true;
         }
-    }
+
+        function deletePaymentMethod(paymentMethod, event) {
+            event.stopPropagation(); // Stop bubbling to prevent selecting the payment method
+            if (confirm('Are you sure you want to delete this payment method?')) {
+                $.ajax({
+                    url: '{{ route('payment.delete') }}', // Gunakan helper route untuk menghindari hardcoding URL
+                    method: 'POST',
+                    data: {
+                        payment_method: paymentMethod
+                    },
+                    success: function(response) {
+                        alert(response.message);
+                        location.reload(); // Reload the page to update the list
+                    },
+                    error: function(xhr) {
+                        alert('Error deleting payment method: ' + xhr.responseText);
+                    }
+                });
+            }
+        }
+
+        document.querySelector('.pay-button').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form from submitting the default way
+
+            const courtSelections = JSON.parse(localStorage.getItem('courtSelections'));
+            document.getElementById('courtId').value = Object.keys(courtSelections).join(', ');
+            document.getElementById('bookingDate').value = courtSelections[Object.keys(courtSelections)[0]].date;
+            document.getElementById('bookingTime').value = courtSelections[Object.keys(courtSelections)[0]].times.join(', ');
+
+            const form = document.getElementById('bookingForm');
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => {
+                console.log('Response status:', response.status); // Debugging line
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data); // Debugging line
+                if (data.success) {
+                    alert(data.message);
+                    // Perbarui tampilan untuk menandai lapangan yang sudah dibooking
+                    const courtSelections = JSON.parse(localStorage.getItem('courtSelections'));
+                    Object.keys(courtSelections).forEach(courtId => {
+                        courtSelections[courtId].times.forEach(timeRange => {
+                            const timeSlot = timeRange.split(' - ')[0];
+                            const courtElement = document.querySelector(`.court-status[data-court-id="${courtId}"][data-time-slot="${timeSlot}"]`);
+                            if (courtElement) {
+                                courtElement.classList.remove('available');
+                                courtElement.classList.add('booked');
+                                courtElement.innerText = `${courtId} booked`;
+                            }
+                        });
+                    });
+                    // Redirect to booking page or clear local storage
+                    localStorage.removeItem('courtSelections');
+                    window.location.href = '/booking';
+                } else {
+                    alert('Booking failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
     </script>
 </body>
 </html>

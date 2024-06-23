@@ -3,19 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Booking;
 use App\Models\Schedule;
 
 date_default_timezone_set('Asia/Jakarta');
 
 class BookingController extends Controller
 {
+
+    public function store(Request $request)
+    {
+        $booking = new Booking();
+        $booking->user_name = $request->user_name;
+        $booking->court_id = $request->court_id;
+        $booking->date = $request->date;
+        $booking->time = $request->time;
+        $booking->total_price = $request->total_price;
+        $booking->save();
+
+        \Log::info('Booking saved successfully', ['booking' => $booking]);
+
+        return response()->json(['success' => true, 'message' => 'Booking successful']);
+    }
+
     public function index(Request $request)
     {
-        // Determine the selected date
         $today = date('Y-m-d');
         $selectedDate = $request->query('date', $today);
 
-        // Ambil data dari tabel schedules berdasarkan tanggal yang dipilih
+        // Ambil data booking dari database
+        $bookings = Booking::where('date', $selectedDate)->get();
+
+        // Ambil data lain yang diperlukan seperti $dates, $timeslots, dll.
         $schedules = Schedule::where('date', $selectedDate)->get();
 
         // Buat array waktu tetap dari 09:00 hingga 21:00
@@ -68,6 +87,6 @@ class BookingController extends Controller
         ksort($dates);
 
         // Return view with compacted variables
-        return view('booking', compact('timeslots', 'dates', 'selectedDate', 'fullDate', 'isToday', 'allPossibleCourts'));
+        return view('booking', compact('timeslots', 'dates', 'selectedDate', 'fullDate', 'isToday', 'allPossibleCourts', 'bookings'));
     }
 }

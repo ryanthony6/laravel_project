@@ -20,7 +20,14 @@
                             <div class="time-slot d-flex align-items-center">
                                 <span class="time-label">{{ $time }}</span>
                                 @foreach ($allPossibleCourts as $court)
-                                    @if ($courts[$court]['available'])
+                                    @php
+                                        $isBooked = $bookings->where('court_id', $court)->where('date', $selectedDate)->where('time', 'LIKE', "%$time%")->count() > 0;
+                                    @endphp
+                                    @if ($isBooked)
+                                        <span class="court-status booked flex-fill text-center">
+                                            {{ $court }} booked
+                                        </span>
+                                    @elseif ($courts[$court]['available'])
                                         <span class="court-status available flex-fill text-center" data-court-id="{{ $courts[$court]['court'] }}" data-time-slot="{{ $time }}">
                                             {{ $courts[$court]['court'] }}
                                             Rp {{ number_format($courts[$court]['price'], 0, ',', '.') }}
@@ -89,22 +96,21 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+        .court-status.booked {
+            background-color: #d3d3d3;
+            color: #000;
+        }
         .court-status.selected {
             background-color: #28a745;
             color: #ffffff;
         }
         .dotted-line {
-            border-top: 1px dotted #ccc;
-            margin: 10px 0;
+            border: none;
+            border-top: 2px dotted black;
         }
         .checkout-button button {
             background-color: #28a745;
             color: #ffffff;
-        }
-
-        .dotted-line {
-            border: none;
-            border-top: 2px dotted black;
         }
     </style>
     <script>

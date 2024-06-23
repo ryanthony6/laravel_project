@@ -22,10 +22,14 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::middleware(['auth'])->group(function () {
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
+    
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
+
+    Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+
     Route::get('/checkout', [PaymentController::class, 'getPayments'])->name('checkout');
     Route::post('/checkout', [PaymentController::class, 'getPayments'])->name('checkout.store');
 
