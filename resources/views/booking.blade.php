@@ -21,20 +21,16 @@
                                 <span class="time-label">{{ $time }}</span>
                                 @foreach ($allPossibleCourts as $court)
                                     @php
-                                        $isBooked = $bookings->where('court_id', $court)->where('date', $selectedDate)->where('time', 'LIKE', "%$time%")->count() > 0;
+                                        $courtData = $courts[$court];
                                     @endphp
-                                    @if ($isBooked)
-                                        <span class="court-status booked flex-fill text-center">
-                                            {{ $court }} booked
-                                        </span>
-                                    @elseif ($courts[$court]['available'])
-                                        <span class="court-status available flex-fill text-center" data-court-id="{{ $courts[$court]['court'] }}" data-time-slot="{{ $time }}">
-                                            {{ $courts[$court]['court'] }}
-                                            Rp {{ number_format($courts[$court]['price'], 0, ',', '.') }}
+                                    @if ($courtData['available'])
+                                        <span class="court-status available flex-fill text-center" data-court-id="{{ $courtData['court'] }}" data-time-slot="{{ $time }}">
+                                            {{ $courtData['court'] }}
+                                            Rp {{ number_format($courtData['price'], 0, ',', '.') }}
                                         </span>
                                     @else
                                         <span class="court-status unavailable flex-fill text-center">
-                                            {{ $courts[$court]['court'] }} not available
+                                            {{ $courtData['court'] }} not available
                                         </span>
                                     @endif
                                 @endforeach
