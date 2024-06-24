@@ -11,6 +11,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\HistoryController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -26,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 
     Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
@@ -47,7 +49,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         return view('admin.statistics');
     })->name('admin.statistics');
 
-
+    // History Routes
+    Route::prefix('history')->group(function () {
+        Route::get('/', [HistoryController::class, 'index'])->name('history.index');
+    });
     // User Routes
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users.index');
