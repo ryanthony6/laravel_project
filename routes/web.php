@@ -10,7 +10,7 @@ use App\Http\Controllers\emailReviewController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -22,12 +22,20 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::middleware(['auth'])->group(function () {
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
+    
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
-    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+
+    Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+
+    Route::get('/checkout', [PaymentController::class, 'getPayments'])->name('checkout');
+    Route::post('/checkout', [PaymentController::class, 'getPayments'])->name('checkout.store');
+
+    Route::post('/api/payment-methods', [PaymentController::class, 'store']);
+    Route::post('/payments', [PaymentController::class, 'store']);
+    Route::post('/delete-payment-method', [PaymentController::class, 'delete'])->name('payment.delete');
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
@@ -57,7 +65,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::post('/store', [ScheduleController::class, 'store'])->name('schedules.store');
         Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('schedules.edit');
         Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
-        Route::delete('/delete/{id}', [ScheduleController::class, 'destroy'])->name('schedules.delete');
+        Route::delete('/delete', [ScheduleController::class, 'destroy'])->name('schedules.delete');
     });
 
 
@@ -66,8 +74,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         return view('admin.orders');
     })->name('admin.orders');
 
+    
     Route::get('/displayreview', [emailReviewController::class, 'index'])->name('displayreview.index');
-
 
     Route::resource('reviews', ReviewController::class);
 });

@@ -12,19 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('schedules', function (Blueprint $table) {
-           $table->id();
-            $table->integer('court');
+            $table->id();
+            $table->unsignedInteger('court');
             $table->decimal('price', 10, 2); 
-            $table->string('schedule'); 
-            $table->string('date');
+            $table->date('schedule_date'); 
+            $table->dateTime('schedule');
+            $table->enum('status', ['available', 'booked', 'not_available'])->default('available');
             $table->timestamps();
-            $table->unique(['court', 'date']);
+            $table->unique(['court', 'schedule']);
         });
+        
     }
-
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('schedules');

@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->string('user_name');
+            $table->string('court_id');
             $table->date('date');
-            $table->string('time_slots'); // Store selected time slots as a string, e.g., '09:00-10:00,10:00-11:00'
-            $table->integer('price');
+            $table->string('time');
+            $table->decimal('total_price', 10, 2);
             $table->timestamps();
         });
     }

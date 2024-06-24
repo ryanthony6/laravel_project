@@ -37,8 +37,6 @@
     <div>
         @yield('content')
     </div>
-
-
     @include('partials.footer')
 
     <!-- Bootstrap Scripts -->
