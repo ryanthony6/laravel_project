@@ -12,7 +12,8 @@ class Schedule extends Model
     protected $fillable = [
         'court',
         'price',
+        'schedule_date',
         'schedule',
-        'date'
+        'status'
     ];
 }
