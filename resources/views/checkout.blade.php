@@ -19,69 +19,70 @@
         }
 
         .card {
-            border: none; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             margin-bottom: 20px;
         }
 
         .card-header {
             background-color: #177d00;
-            text-align: center; 
+            text-align: center;
             color: white;
-            font-size: 22px; 
-            padding: 15px 20px; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
+            font-size: 22px;
+            padding: 15px 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .card-body {
             background-color: #ffffff;
-            padding: 25px; 
-            color: #333; 
-            font-size: 16px; 
+            padding: 25px;
+            color: #333;
+            font-size: 16px;
         }
 
         .booking-detail {
-            border-left: 5px solid #0e4d00; 
+            border-left: 5px solid #0e4d00;
             padding: 10px;
-            margin-bottom: 15px; 
+            margin-bottom: 15px;
         }
 
         .booking-detail div {
-            margin-bottom: 20px; 
-            border-left: 5px solid #0e4d00; 
+            margin-bottom: 20px;
+            border-left: 5px solid #0e4d00;
             padding-left: 10px;
             background-color: #f9f9f9;
         }
 
-        .booking-detail p, .summary-line p {
-            margin-bottom: 5px; 
+        .booking-detail p,
+        .summary-line p {
+            margin-bottom: 5px;
         }
 
         .dashed {
-            border-top: 2px dashed #ccc; 
+            border-top: 2px dashed #ccc;
         }
 
         .checkout-button button {
-            background-color: #24870e; 
+            background-color: #24870e;
             color: white;
             padding: 15px 30px;
             font-size: 20px;
             border-radius: 8px;
-            cursor: pointer; 
-            transition: background-color 0.3s; 
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .checkout-button button:hover {
-            background-color: #0e4502; 
-        } 
+            background-color: #0e4502;
+        }
 
         .no-details {
-            text-align: center; 
-            padding: 20px; 
-            font-size: 16px; 
+            text-align: center;
+            padding: 20px;
+            font-size: 16px;
             color: #666;
             border-left: none !important;
             background: none;
@@ -89,7 +90,7 @@
 
         .modal-content {
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .modal-header {
@@ -166,7 +167,7 @@
             font-size: 20px;
             color: #333;
             margin-bottom: 0;
-            flex-grow: 1; 
+            flex-grow: 1;
         }
 
         .modal-footer {
@@ -178,10 +179,10 @@
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;
-            margin-top: 10px; 
+            margin-top: 10px;
         }
 
-        .pay-button{
+        .pay-button {
             background-color: #24870e;
             color: white;
             padding: 10px 20px;
@@ -194,11 +195,11 @@
         }
 
         #payment-methods {
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
         }
 
-        .add-payment{
-            margin-top: 20px; 
+        .add-payment {
+            margin-top: 20px;
         }
 
         .modal-footer .pay-button:hover {
@@ -275,51 +276,51 @@
     <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-            <form id="bookingForm" method="POST" action="{{ route('booking.store') }}">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="paymentModalLabel">Select Payment Method</h5>
-                </div>
-                <div class="modal-body">
-                    <div id="payment-methods">
-                        @if ($payments->count() > 0)
-                            @php
-                                $hasOvo = false;
-                                $hasGopay = false;
-                            @endphp
-                            @foreach ($payments as $payment)
-                                @if ($payment->payment_method == 'ovo')
-                                    @php $hasOvo = true; @endphp
-                                @elseif ($payment->payment_method == 'gopay')
-                                    @php $hasGopay = true; @endphp
+                <form id="bookingForm" method="POST" action="{{ route('process.payment') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="paymentModalLabel">Select Payment Method</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div id="payment-methods">
+                            @if ($payments->count() > 0)
+                                @php
+                                    $hasOvo = false;
+                                    $hasGopay = false;
+                                @endphp
+                                @foreach ($payments as $payment)
+                                    @if ($payment->payment_method == 'ovo')
+                                        @php $hasOvo = true; @endphp
+                                    @elseif ($payment->payment_method == 'gopay')
+                                        @php $hasGopay = true; @endphp
+                                    @endif
+                                    <div class="payment-option" onclick="selectPaymentMethod(this, '{{ $payment->payment_method }}')">
+                                        <input type="radio" name="paymentMethod" value="{{ $payment->payment_method }}" id="{{ $payment->payment_method }}" hidden>
+                                        <label for="{{ $payment->payment_method }}">
+                                            <img src="{{ asset('images/' . $payment->payment_method . '.png') }}" alt="{{ ucfirst($payment->payment_method) }} Logo">
+                                            {{ ucfirst($payment->payment_method) }}: ***********{{ substr($payment->phone_number, -4) }}
+                                        </label>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deletePaymentMethod('{{ $payment->payment_method }}', event)">Delete</button>
+                                    </div>
+                                @endforeach
+                                @if (!$hasOvo || !$hasGopay)
+                                    <p class="add-payment" data-toggle="modal" data-target="#addPaymentModal">+ Add payment method</p>
                                 @endif
-                                <div class="payment-option" onclick="selectPaymentMethod(this, '{{ $payment->payment_method }}')">
-                                    <input type="radio" name="paymentMethod" value="{{ $payment->payment_method }}" id="{{ $payment->payment_method }}" hidden>
-                                    <label for="{{ $payment->payment_method }}">
-                                        <img src="{{ asset('images/' . $payment->payment_method . '.png') }}" alt="{{ ucfirst($payment->payment_method) }} Logo">
-                                        {{ ucfirst($payment->payment_method) }}: ***********{{ substr($payment->phone_number, -4) }}
-                                    </label>
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="deletePaymentMethod('{{ $payment->payment_method }}', event)">Delete</button>
-                                </div>
-                            @endforeach
-                            @if (!$hasOvo || !$hasGopay)
+                            @else
+                                <p>No payment methods added yet.</p>
                                 <p class="add-payment" data-toggle="modal" data-target="#addPaymentModal">+ Add payment method</p>
                             @endif
-                        @else
-                            <p>No payment methods added yet.</p>
-                            <p class="add-payment" data-toggle="modal" data-target="#addPaymentModal">+ Add payment method</p>
-                        @endif
+                        </div>
+                        <hr class="dashed">
+                        <div class="price" id="totalAmount">Total: </div>
                     </div>
-                    <hr class="dashed">
-                    <div class="price" id="totalAmount">Total: </div>
-                </div>
-                <input type="hidden" name="user_name" value="{{ Auth::user()->name }}">
-                <input type="hidden" name="court_id" id="courtId">
-                <input type="hidden" name="date" id="bookingDate">
-                <input type="hidden" name="time" id="bookingTime">
-                <input type="hidden" name="total_price" id="totalPrice">
-                <button type="submit" class="pay-button btn btn-success">Pay Now</button>
-            </form>
+                    <input type="hidden" name="user_name" value="{{ Auth::user()->name }}">
+                    <input type="hidden" name="court_id" id="courtId">
+                    <input type="hidden" name="date" id="bookingDate">
+                    <input type="hidden" name="time" id="bookingTime">
+                    <input type="hidden" name="total_price" id="totalPrice">
+                    <button type="submit" class="pay-button btn btn-success">Pay Now</button>
+                </form>
             </div>
         </div>
     </div>
@@ -337,24 +338,20 @@
                     <p>Select payment method:</p>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="paymentMethod" id="gopayMethod" value="gopay">
-                        <label class="form-check-label" for="gopayMethod">
-                            Gopay
-                        </label>
+                        <label class="form-check-label" for="gopayMethod">Gopay</label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="paymentMethod" id="ovoMethod" value="ovo">
-                        <label class="form-check-label" for="ovoMethod">
-                            OVO
-                        </label>
+                        <label class="form-check-label" for="ovoMethod">OVO</label>
                     </div>
                     <div class="form-group mt-3" id="phoneNumberInput">
                         <label for="phoneNumber">Phone Number:</label>
                         <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="d-flex justify-content-between align-items-center p-3">
                     <button type="button" class="btn btn-primary" id="confirmPaymentMethod">Save</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -498,6 +495,12 @@
         document.querySelector('.pay-button').addEventListener('click', function(event) {
             event.preventDefault(); // Prevent form from submitting the default way
 
+            const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method.');
+                return;
+            }
+
             const courtSelections = JSON.parse(localStorage.getItem('courtSelections'));
             document.getElementById('courtId').value = Object.keys(courtSelections).join(', ');
             document.getElementById('bookingDate').value = courtSelections[Object.keys(courtSelections)[0]].date;
@@ -524,8 +527,7 @@
                 console.log('Success:', data); // Debugging line
                 if (data.success) {
                     alert(data.message);
-                    // Perbarui tampilan untuk menandai lapangan yang sudah dibooking
-                    const courtSelections = JSON.parse(localStorage.getItem('courtSelections'));
+                    // Update the view to mark the courts as booked
                     Object.keys(courtSelections).forEach(courtId => {
                         courtSelections[courtId].times.forEach(timeRange => {
                             const timeSlot = timeRange.split(' - ')[0];

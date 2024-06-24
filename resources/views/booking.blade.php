@@ -23,10 +23,14 @@
                                     @php
                                         $courtData = $courts[$court];
                                     @endphp
-                                    @if ($courtData['available'])
+                                    @if ($courtData['status'] == 'available')
                                         <span class="court-status available flex-fill text-center" data-court-id="{{ $courtData['court'] }}" data-time-slot="{{ $time }}">
                                             {{ $courtData['court'] }}
                                             Rp {{ number_format($courtData['price'], 0, ',', '.') }}
+                                        </span>
+                                    @elseif ($courtData['status'] == 'booked')
+                                        <span class="court-status booked flex-fill text-center">
+                                            {{ $courtData['court'] }} booked
                                         </span>
                                     @else
                                         <span class="court-status unavailable flex-fill text-center">
@@ -42,7 +46,7 @@
             </div>
         </div>
 
-        <form id="checkout-form" action="/checkout" method="POST">
+        <form id="checkout-form" action="{{ route('process.checkout') }}" method="POST">
             @csrf
             <input type="hidden" name="booking_details" id="booking_details">
             <div class="checkout-button mt-4 mb-4">
@@ -89,12 +93,12 @@
             cursor: pointer;
         }
         .court-status.unavailable {
-            background-color: #f8d7da;
-            color: #721c24;
+            background-color: #EEEEEE;
+            color: #686D76;
         }
         .court-status.booked {
-            background-color: #d3d3d3;
-            color: #000;
+            background-color: #dc3545;
+            color: #ffffff;
         }
         .court-status.selected {
             background-color: #28a745;
@@ -161,3 +165,4 @@
         });
     </script>
 @endsection
+

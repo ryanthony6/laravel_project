@@ -32,7 +32,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
 
-    Route::get('/checkout', [PaymentController::class, 'getPayments'])->name('checkout');
+    Route::get('/checkout', [BookingController::class, 'checkout'])->name('checkout.index');
+    Route::post('/process-checkout', [BookingController::class, 'processCheckout'])->name('process.checkout');
+    Route::post('/process-payment', [BookingController::class, 'processPayment'])->name('process.payment');
+
+    Route::get('/checkout', [PaymentController::class, 'getPayments'])->name('checkout.index');
     Route::post('/checkout', [PaymentController::class, 'getPayments'])->name('checkout.store');
 
     Route::post('/api/payment-methods', [PaymentController::class, 'store']);
