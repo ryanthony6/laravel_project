@@ -81,45 +81,63 @@ class ScheduleController extends Controller
 
     public function edit($id)
     {
-        $schedule = Schedule::findOrFail($id); // Cari jadwal berdasarkan ID, atau beri response error jika tidak ditemukan
+        $schedule = Schedule::findOrFail($id);
         return view('admin.schedules.edit', compact('schedule'));
     }
 
     public function update(Request $request, $id)
-    {
-        // Validasi data
-        $request->validate([
-            'court' => 'required|integer|between:1,6',
-            'price' => 'required|numeric',
-            'schedule_date' => 'required|date',
-            'hours' => 'required|array',
-            'hours.*' => 'integer|between:8,16', // Memastikan jam antara 8 dan 16
-        ]);
+{
+    // Validasi data
+    $request->validate([
+        'court' => 'required|integer|between:1,6',
+        'price' => 'required|numeric',
+        'schedule_date' => 'required|date',
+        'hours' => 'required|array',
+        'hours.*' => 'integer|between:10,21', // Memastikan jam antara 10 dan 21
+    ]);
 
-        $court = $request->input('court');
-        $price = $request->input('price');
-        $scheduleDate = $request->input('schedule_date');
-        $hours = $request->input('hours');
+    $court = $request->input('court');
+    $price = $request->input('price');
+    $scheduleDate = $request->input('schedule_date');
+    $hours = $request->input('hours');
 
+    try {
+        // Temukan jadwal berdasarkan ID
+        $schedule = Schedule::findOrFail($id);
+
+        
         // Hapus jadwal lama
-        Schedule::where('court', $court)
-            ->whereDate('schedule', $scheduleDate)
-            ->delete();
+        Schedule::where('court', $schedule->court)
+                ->where('schedule_date', $schedule->schedule_date)
+                ->delete();
 
         // Simpan jadwal baru untuk setiap jam yang dipilih
         foreach ($hours as $hour) {
             $scheduleDateTime = sprintf('%s %02d:00:00', $scheduleDate, $hour);
 
-            $schedule = Schedule::findOrFail($id);
-            $schedule->court = $court;
-            $schedule->price = $price;
-            $schedule->schedule = $scheduleDateTime;
-            $schedule->status = 'available'; // Atau status yang sesuai
-            $schedule->save();
+            $newSchedule = new Schedule();
+            $newSchedule->court = $court;
+            $newSchedule->price = $price;
+            $newSchedule->schedule_date = $scheduleDate;
+            $newSchedule->schedule = $scheduleDateTime;
+            $newSchedule->status = 'available'; // Atau status yang sesuai
+            $newSchedule->save();
         }
 
+      
         return redirect()->route('schedules.index')->with('success', 'Jadwal berhasil diperbarui.');
+
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        
+        return redirect()->back()->with('error', 'Jadwal tidak ditemukan.');
+    } catch (\Exception $e) {
+       
+        return redirect()->back()->with('error', 'Gagal memperbarui jadwal: ' . $e->getMessage());
     }
+}
+
+
+
 
     public function destroy(Request $request)
     {

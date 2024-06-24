@@ -65,7 +65,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::post('/store', [ScheduleController::class, 'store'])->name('schedules.store');
         Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('schedules.edit');
         Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
-        Route::delete('/delete/{id}', [ScheduleController::class, 'destroy'])->name('schedules.delete');
+        Route::delete('/delete', [ScheduleController::class, 'destroy'])->name('schedules.delete');
     });
 
 
@@ -74,8 +74,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         return view('admin.orders');
     })->name('admin.orders');
 
+    
     Route::get('/displayreview', [emailReviewController::class, 'index'])->name('displayreview.index');
-
 
     Route::resource('reviews', ReviewController::class);
 });

@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label>Jam:</label><br>
                         <div class="row">
-                            @foreach (range(10, 22) as $hour)
+                            @foreach (range(10, 21) as $hour)
                                 <div class="col-3 mb-2"> <!-- Setiap kolom memiliki margin bottom 2 -->
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="hour_{{ $hour }}"

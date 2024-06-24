@@ -75,11 +75,12 @@
                                         data-bs-target="#editScheduleModal{{ $schedule->id }}">
                                         Edit
                                     </button>
-                                    <form action='{{ route('schedules.delete', $schedule->id) }}' method="POST"
-                                        class="d-inline"
+                                    <form action="{{ route('schedules.delete') }}" method="POST" class="d-inline"
                                         onsubmit="return confirm('Are you sure you want to delete this schedule?');">
-                                        @method('delete')
+                                        @method('DELETE')
                                         @csrf
+                                        <input type="hidden" name="court" value="{{ $court }}">
+                                        <input type="hidden" name="schedule_date" value="{{ $date }}">
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
                                 </td>
@@ -98,5 +99,5 @@
 
 
     @include('admin.schedules.create')
-    {{-- @include('admin.schedules.edit') --}}
+    @include('admin.schedules.edit')
 @endsection
