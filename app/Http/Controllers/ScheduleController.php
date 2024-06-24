@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -11,22 +12,22 @@ class ScheduleController extends Controller
     {
         $query = Schedule::query();
 
-        // Filter berdasarkan tanggal jika ada
-        if ($request->has('tanggal')) {
-            $query->whereDate('schedule', $request->tanggal);
-        }
+        $tanggal = $request->has('tanggal') ? $request->tanggal : Carbon::today()->toDateString();
+
+        $query->whereDate('schedule', $tanggal);
 
         $schedules = $query->orderBy('court', 'asc')
-        ->get()
-        ->groupBy(function ($schedule) {
-            return (new \DateTime($schedule->schedule))->format('Y-m-d');
-        })
-        ->map(function ($dateGroup) {
-            return $dateGroup->groupBy('court')->map(function ($courtGroup) {
-                return $courtGroup->sortBy('schedule');
+            ->get()
+            ->groupBy(function ($schedule) {
+                return (new \DateTime($schedule->schedule))->format('Y-m-d');
+            })
+            ->map(function ($dateGroup) {
+                return $dateGroup->groupBy('court')->map(function ($courtGroup) {
+                    return $courtGroup->sortBy('schedule');
+                });
             });
-        });
-    
+
+        // dd($schedules);
 
         return view('admin.schedules.index', compact('schedules'));
     }
@@ -44,7 +45,7 @@ class ScheduleController extends Controller
             'price' => 'required|numeric',
             'schedule_date' => 'required|date',
             'hours' => 'required|array',
-            'hours.*' => 'integer|between:10,22', // Memastikan jam antara 8 dan 16
+            'hours.*' => 'integer|between:10,21',
         ]);
 
         $court = $request->input('court');
@@ -68,6 +69,7 @@ class ScheduleController extends Controller
             $schedule = new Schedule();
             $schedule->court = $court;
             $schedule->price = $price;
+            $schedule->schedule_date = $scheduleDate;
             $schedule->schedule = $scheduleDateTime;
             $schedule->status = 'available'; // Atau status yang sesuai
             $schedule->save();
@@ -126,15 +128,15 @@ class ScheduleController extends Controller
             'court' => 'required|integer|between:1,6',
             'schedule_date' => 'required|date',
         ]);
-    
+
         $court = $request->input('court');
         $scheduleDate = $request->input('schedule_date');
-    
+
         // Hapus semua jadwal yang sesuai dengan lapangan dan tanggal tertentu
         Schedule::where('court', $court)
-                ->whereDate('schedule', $scheduleDate)
-                ->delete();
-    
+            ->whereDate('schedule', $scheduleDate)
+            ->delete();
+
         return redirect()->route('schedules.index')->with('success', 'Semua jadwal untuk lapangan nomor ' . $court . ' pada tanggal ' . $scheduleDate . ' berhasil dihapus.');
     }
 }

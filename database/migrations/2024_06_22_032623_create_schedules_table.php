@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('court');
             $table->decimal('price', 10, 2); 
+            $table->date('schedule_date'); 
             $table->dateTime('schedule');
             $table->enum('status', ['available', 'booked', 'not_available'])->default('available');
             $table->timestamps();
