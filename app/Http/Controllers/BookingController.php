@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Schedule;
 use App\Models\Booking;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 date_default_timezone_set('Asia/Jakarta');
 
@@ -13,8 +15,19 @@ class BookingController extends Controller
 {
     public function index(Request $request)
     {
-        $today = date('Y-m-d');
-        $selectedDate = $request->query('date', $today);
+        $startDate = Carbon::now();
+        $endDate = Carbon::now()->addDays(6);
+        $period = CarbonPeriod::create($startDate, $endDate);
+
+        $dates = [];
+        foreach ($period as $date) {
+            $key = $date->format('Y-m-d');
+            $value = $date->format('D, d M');
+            $dates[$key] = $value;
+        }
+
+        $selectedDate = $request->input('date', $startDate->format('Y-m-d'));
+        $fullDate = Carbon::parse($selectedDate)->format('l, d F Y');
 
         // Ambil data dari tabel schedules berdasarkan tanggal yang dipilih
         $schedules = Schedule::whereDate('schedule_date', $selectedDate)->get();
@@ -47,26 +60,14 @@ class BookingController extends Controller
                 $timeslots[$scheduleTime]['Court ' . $schedule->court] = [
                     'court' => 'Court ' . $schedule->court,
                     'price' => $schedule->price,
-                    'status' => $schedule->status
+                    'status' => $schedule->status,
+                    'user_id' => $schedule->user_id // Add user_id to the court data
                 ];
             }
         }
 
-        // Generate full date display
-        $fullDate = date('l, d F Y', strtotime($selectedDate));
-
         // Check if the selected date is today
-        $isToday = ($selectedDate == $today);
-
-        // Ambil semua tanggal yang tersedia dari database
-        $allDates = Schedule::selectRaw('DATE(schedule_date) as date')->distinct()->pluck('date')->toArray();
-        $dates = [];
-        foreach ($allDates as $date) {
-            $dates[$date] = date('D, d M', strtotime($date));
-        }
-
-        // Urutkan tanggal
-        ksort($dates);
+        $isToday = ($selectedDate == date('Y-m-d'));
 
         // Return view with compacted variables
         return view('booking', compact('timeslots', 'dates', 'selectedDate', 'fullDate', 'isToday', 'allPossibleCourts'));
@@ -104,7 +105,7 @@ class BookingController extends Controller
     public function processPayment(Request $request)
     {
         $bookingDetails = session('booking_details');
-        $userName = Auth::user()->name; // Ambil nama pengguna dari tabel users
+        $userId = Auth::id(); // Ambil ID pengguna yang sedang login
         $totalPrice = 0;
 
         foreach ($bookingDetails as $courtId => $details) {
@@ -120,11 +121,12 @@ class BookingController extends Controller
 
                 if ($schedule) {
                     $schedule->status = 'booked';
+                    $schedule->user_id = $userId; // Set user_id
                     $schedule->save();
 
                     // Simpan data booking ke dalam database bookings
                     Booking::create([
-                        'user_name' => $userName,
+                        'user_name' => Auth::user()->name,
                         'court_id' => $schedule->court,
                         'date' => $scheduleDate,
                         'time' => $startTime,

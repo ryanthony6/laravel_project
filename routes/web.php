@@ -12,6 +12,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\BookingHistoryController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -23,21 +24,22 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::middleware(['auth'])->group(function () {
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
     Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
-    
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
+    Route::get('/booking-history', [BookingHistoryController::class, 'showBookingHistory'])->name('booking.history');
+    Route::post('/cancel-booking/{id}', [BookingHistoryController::class, 'cancelBooking'])->name('cancel.booking');
 
-    Route::post('/booking', [BookingController::class, 'store'])->name('booking.store');
+    Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 
     Route::get('/checkout', [BookingController::class, 'checkout'])->name('checkout.index');
     Route::post('/process-checkout', [BookingController::class, 'processCheckout'])->name('process.checkout');
     Route::post('/process-payment', [BookingController::class, 'processPayment'])->name('process.payment');
 
     Route::get('/checkout', [PaymentController::class, 'getPayments'])->name('checkout.index');
-    Route::post('/checkout', [PaymentController::class, 'getPayments'])->name('checkout.store');
+    Route::post('/checkout/store', [PaymentController::class, 'getPayments'])->name('checkout.store');
 
     Route::post('/api/payment-methods', [PaymentController::class, 'store']);
     Route::post('/payments', [PaymentController::class, 'store']);

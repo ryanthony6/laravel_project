@@ -48,7 +48,7 @@
                             </div>
                             <div class="d-flex justify-content-center mt-4">
                                 <button type="submit" class="btn btn-primary mr-2">Update</button>
-                                <a href="{{ route('home') }}" class="btn btn-secondary mr-2">Back to home</a>
+                                <a href="{{ route('home.index') }}" class="btn btn-secondary mr-2">Back to home</a>
                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal">Delete Account</button>
                             </div>
                         </form>

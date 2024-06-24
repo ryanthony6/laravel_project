@@ -55,6 +55,10 @@
                                     <a class="dropdown-item" href="{{ route('profile.index') }}">
                                         {{ __('Edit Profile') }}
                                     </a>
+
+                                    <a class="dropdown-item" href="{{ route('booking.history') }}">
+                                        {{ __('Booking History') }}
+                                    </a>
                                 @endif
                                 @if (Auth::user()->role === 'admin')
                                     <!-- Check if the user is an admin -->
@@ -81,7 +85,7 @@
     </nav>
 @endunless
 
-@if (Route::is('booking.index'))
+@if (Route::is('booking.index') || Route::is('booking.history'))
     <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}" style="color: black;">

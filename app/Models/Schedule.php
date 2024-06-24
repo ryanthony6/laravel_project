@@ -14,6 +14,13 @@ class Schedule extends Model
         'price',
         'schedule_date',
         'schedule',
-        'status'
+        'status',
+        'user_id', // Added user_id to fillable
     ];
+
+    // Added relationship to User model
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

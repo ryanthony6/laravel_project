@@ -29,7 +29,7 @@
                                             Rp {{ number_format($courtData['price'], 0, ',', '.') }}
                                         </span>
                                     @elseif ($courtData['status'] == 'booked')
-                                        <span class="court-status booked flex-fill text-center">
+                                        <span class="court-status booked {{ isset($courtData['user_id']) && $courtData['user_id'] == auth()->id() ? 'booked-by-user' : '' }} flex-fill text-center">
                                             {{ $courtData['court'] }} booked
                                         </span>
                                     @else
@@ -165,4 +165,6 @@
         });
     </script>
 @endsection
+
+
 

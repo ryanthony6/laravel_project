@@ -18,14 +18,20 @@ return new class extends Migration
             $table->date('schedule_date'); 
             $table->dateTime('schedule');
             $table->enum('status', ['available', 'booked', 'not_available'])->default('available');
+            $table->unsignedBigInteger('user_id')->nullable(); // Added user_id column
             $table->timestamps();
             $table->unique(['court', 'schedule']);
+
+            // Add foreign key constraint if needed
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-        
     }
     
     public function down(): void
     {
+        Schema::table('schedules', function (Blueprint $table) {
+            $table->dropForeign(['user_id']); // Drop foreign key constraint
+        });
         Schema::dropIfExists('schedules');
     }
 };
