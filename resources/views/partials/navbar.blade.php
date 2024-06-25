@@ -1,4 +1,8 @@
-@unless (Route::is('login') || Route::is('register') || Route::is('password.request') || Route::is('profile.index') || Route::is('bookingtes.index'))
+@unless (Route::is('login') ||
+        Route::is('register') ||
+        Route::is('password.request') ||
+        Route::is('profile.index') ||
+        Route::is('bookingtes.index'))
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container">
@@ -19,9 +23,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('booking.index') }}">Book</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#contact-us">Contact Us</a>
-                    </li>
+
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -91,8 +93,9 @@
             <a class="navbar-brand" href="{{ url('/') }}" style="color: black;">
                 Cahaya Sports
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -103,10 +106,7 @@
                         <a class="nav-link" href="{{ route('home.index') }}" style="color: black;">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('booking.index') }}" style="color: black;">Booking</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact-us" style="color: black;">Contact Us</a>
+                        <a class="nav-link" href="{{ route('booking.index') }}" style="color: black;">Book</a>
                     </li>
                 </ul>
 
@@ -116,22 +116,25 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item ">
-                                <a class="nav-link" href="{{ route('login') }}" style="color: black;">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}"
+                                    style="color: black;">{{ __('Login') }}</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}" style="color: black;">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}"
+                                    style="color: black;">{{ __('Register') }}</a>
                             </li>
                         @endif
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: black;">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre
+                                style="color: black;">
                                 <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/ProfilePic.png') }}"
-                                    alt="{{ Auth::user()->image ? 'User Image' : 'Default Image' }}" class="rounded-circle"
-                                    width="30" height="30" style="margin-right: 10px;">
+                                    alt="{{ Auth::user()->image ? 'User Image' : 'Default Image' }}"
+                                    class="rounded-circle" width="30" height="30" style="margin-right: 10px;">
                                 {{ Auth::user()->name }}
                             </a>
 

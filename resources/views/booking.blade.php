@@ -2,7 +2,7 @@
 
 @section('content')
     <section>
-        <div class="container pt-5" >
+        <div class="container pt-5">
             <div class="day-nav mb-3 d-flex justify-content-start pt-5">
                 @foreach ($dates as $key => $value)
                     <a href="{{ $isToday && $key == date('Y-m-d') ? url('booking') : url('booking?date=' . $key) }}"
@@ -28,7 +28,8 @@
                                         @if ($courtData['status'] == 'available')
                                             <span class="court-status available flex-fill text-center"
                                                 data-court-id="{{ $courtData['court'] }}"
-                                                data-time-slot="{{ $time }}">
+                                                data-time-slot="{{ $time }}"
+                                                data-price="{{ $courtData['price'] }}">
                                                 {{ $courtData['court'] }}
                                                 Rp {{ number_format($courtData['price'], 0, ',', '.') }}
                                             </span>
@@ -60,125 +61,4 @@
             </form>
         </div>
     </section>
-    <style>
-        .day-nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .day-nav a {
-            margin: 0 5px;
-        }
-
-        .day-nav a.active {
-            font-weight: bold;
-            color: #28a745;
-        }
-
-        .time-slot {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .time-label {
-            width: 60px;
-            text-align: center;
-            margin-right: 10px;
-        }
-
-        .court-status {
-            padding: 10px;
-            border-radius: 20px;
-            margin: 0 5px;
-            border: 1px solid #ccc;
-            flex: 1;
-            max-width: 185px;
-            min-width: 185px;
-            box-sizing: border-box;
-        }
-
-        .court-status.available {
-            background-color: #f8f9fa;
-            color: #000;
-            cursor: pointer;
-        }
-
-        .court-status.unavailable {
-            background-color: #EEEEEE;
-            color: #686D76;
-        }
-
-        .court-status.booked {
-            background-color: #dc3545;
-            color: #ffffff;
-        }
-
-        .court-status.selected {
-            background-color: #28a745;
-            color: #ffffff;
-        }
-
-        .dotted-line {
-            border: none;
-            border-top: 2px dotted black;
-        }
-
-        .checkout-button button {
-            background-color: #28a745;
-            color: #ffffff;
-        }
-    </style>
-    <script>
-        var fullDate = "{{ $fullDate }}";
-        document.addEventListener('DOMContentLoaded', function() {
-            const courts = document.querySelectorAll('.court-status.available');
-            const checkoutForm = document.getElementById('checkout-form');
-            const bookingDetailsInput = document.getElementById('booking_details');
-            const courtSelections = {};
-
-            function updateBookingDetails() {
-                bookingDetailsInput.value = JSON.stringify(courtSelections);
-            }
-
-            courts.forEach(court => {
-                court.addEventListener('click', function() {
-                    const courtId = this.dataset.courtId;
-                    const timeSlot = this.dataset.timeSlot;
-                    const nextHour = `${parseInt(timeSlot.split(':')[0]) + 1}:00`;
-                    const timeRange = `${timeSlot} - ${nextHour}`;
-
-                    if (!courtSelections[courtId]) {
-                        courtSelections[courtId] = {
-                            times: [],
-                            date: fullDate
-                        };
-                    }
-
-                    if (this.classList.contains('selected')) {
-                        this.classList.remove('selected');
-                        const index = courtSelections[courtId].times.indexOf(timeRange);
-                        if (index > -1) {
-                            courtSelections[courtId].times.splice(index, 1);
-                        }
-                    } else {
-                        if (courtSelections[courtId].times.length < 5) {
-                            this.classList.add('selected');
-                            courtSelections[courtId].times.push(timeRange);
-                        } else {
-                            alert('You can only select a court for a maximum of 5 hours.');
-                        }
-                    }
-
-                    updateBookingDetails();
-                });
-            });
-
-            document.querySelector('.checkout-button button').addEventListener('click', function() {
-                localStorage.setItem('courtSelections', JSON.stringify(courtSelections));
-                window.location.href = '/checkout';
-            });
-        });
-    </script>
 @endsection

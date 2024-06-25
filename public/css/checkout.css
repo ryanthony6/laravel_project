@@ -1,0 +1,140 @@
+/* General Styling */
+body {
+    background-color: #f2f2f6;
+}
+
+#checkout-page {
+    margin: 6rem;
+    margin-top: 13rem;
+    /* background-color: #007bff; */
+}
+
+.container {
+    margin-top: 20px;
+}
+
+/* Card Styling */
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Payment Details Styling */
+#payment-details .card {
+    margin-bottom: 20px;
+}
+
+#payment-details .card-header {
+    background-color: #343a40;
+    color: white;
+}
+
+#payment-details .card-body p {
+    margin: 0;
+}
+
+/* Summary Card Styling */
+#summary-details {
+    padding: 20px;
+}
+
+.divider-dash {
+    border-top: 2px dashed #999;
+}
+
+/* Checkout Button */
+.checkout-button {
+    text-align: center;
+}
+
+.checkout-button .btn {
+    background-color: #28a745;
+    color: white;
+    font-size: 18px;
+}
+
+/* Payment Option Styling */
+.payment-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.payment-option label {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.payment-option img {
+    height: 30px;
+    width: auto;
+}
+
+.payment-option .btn-danger {
+    margin-left: 10px;
+}
+
+/* Add Payment Method */
+.add-payment {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.add-payment:hover {
+    text-decoration: none;
+}
+
+/* Modal Styling */
+.modal-header {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-header .close {
+    color: white;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.form-check-label {
+    margin-left: 5px;
+}
+
+#phoneNumberInput {
+    display: none;
+}
+
+#phoneNumberInput input {
+    width: 100%;
+}
+
+#confirmPaymentMethod {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Total Amount Styling */
+#totalAmount {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+
+.pay-button {
+    background-color: #28a745;
+    color: white;
+    font-size: 18px;
+    width: 100%;
+    margin-top: 20px;
+}

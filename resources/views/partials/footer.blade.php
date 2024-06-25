@@ -28,13 +28,6 @@
                                         Booking
                                     </a>
                                 </li>
-                    
-                                <li>
-                                    <a href="{{ route('home.index') }}"
-                                        class="link-underline-opacity-0 link-opacity-75-hover link-underline-opacity-100-hover link-offset-1 link-dark link-opacity-75 fs-7 link-footer">
-                                        FAQ
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </div>

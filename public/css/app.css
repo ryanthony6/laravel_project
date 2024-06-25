@@ -170,9 +170,74 @@ body {
     flex: 1;
 }
 
+.day-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
+.day-nav a {
+    margin: 0 5px;
+}
 
-/*  */
+.day-nav a.active {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.time-slot {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.time-label {
+    width: 60px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.court-status {
+    padding: 10px;
+    border-radius: 20px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    flex: 1;
+    max-width: 185px;
+    min-width: 185px;
+    box-sizing: border-box;
+}
+
+.court-status.available {
+    background-color: #f8f9fa;
+    color: #000;
+    cursor: pointer;
+}
+
+.court-status.unavailable {
+    background-color: #EEEEEE;
+    color: #686D76;
+}
+
+.court-status.booked {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.court-status.selected {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.dotted-line {
+    border: none;
+    border-top: 2px dotted black;
+}
+
+.checkout-button button {
+    background-color: #28a745;
+    color: #ffffff;
+}
 
 
 
