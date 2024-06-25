@@ -57,22 +57,18 @@ body {
     border-color: #005153 !important;
 }
 
-#field_section {
-    background-color: var(--bg-color);
-    min-height: 130vh;
+
+#services{
+    background-color: #f2f2f6;
 }
 
-.card {
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+.border-primary {
+    border-color: var(--primary-color) !important;
 }
 
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-}
 
 #testimonials-section {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     min-height: 60vh;
     padding-top: 1rem;
 }
@@ -174,6 +170,7 @@ body {
 .main-content {
     flex: 1;
 }
+
 
 
 
