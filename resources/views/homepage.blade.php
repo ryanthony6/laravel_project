@@ -102,7 +102,7 @@
                 </div>
                 <div class="col-md-6">
                     <!-- Contact Form -->
-                    <form action="{{ route('contact.us.store') }}" method="POST">
+                    <form id="contactForm" action="{{ route('contact.us.store') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="mb-3">
                             <!-- Name Input with Icon -->

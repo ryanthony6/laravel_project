@@ -1,8 +1,8 @@
 
-var fullDate = "{{ $fullDate }}";
+var fullDate = "{{$fullDate}}";
 document.addEventListener('DOMContentLoaded', function() {
     const courts = document.querySelectorAll('.court-status.available');
-    const checkoutForm = document.getElementById('checkout-form');
+    // const checkoutForm = document.getElementById('checkout-form');
     const bookingDetailsInput = document.getElementById('booking_details');
     const courtSelections = {};
 

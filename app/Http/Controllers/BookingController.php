@@ -79,21 +79,28 @@ class BookingController extends Controller
         return view('checkout', compact('bookingDetails'));
     }
 
-  
+    public function processCheckout(Request $request)
+    {
+        $bookingDetails = json_decode($request->input('booking_details'), true);
+        
+        // Simpan booking details sementara di session
+        session(['booking_details' => $bookingDetails]);
+
+        // Redirect ke halaman checkout
+        return redirect()->route('checkout.index');
+    }
 
     public function checkout()
     {
         $bookingDetails = session('booking_details');
 
-        // Validate booking details if necessary
+        // Validasi booking details jika perlu
         if (!$bookingDetails) {
             return redirect()->route('booking.index')->with('error', 'No booking details found.');
         }
 
-        // Pass booking details to the view
         return view('checkout', compact('bookingDetails'));
     }
-
 
     public function processPayment(Request $request)
     {
@@ -109,8 +116,8 @@ class BookingController extends Controller
                 $scheduleDateTime = $scheduleDate . ' ' . $startTime;
 
                 $schedule = Schedule::where('court', str_replace('Court ', '', $courtId))
-                    ->where('schedule', $scheduleDateTime)
-                    ->first();
+                                    ->where('schedule', $scheduleDateTime)
+                                    ->first();
 
                 if ($schedule) {
                     $schedule->status = 'booked';
