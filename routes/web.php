@@ -59,6 +59,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::prefix('history')->group(function () {
         Route::get('/', [HistoryController::class, 'index'])->name('history.index');
     });
+    
     // User Routes
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users.index');
@@ -80,12 +81,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     });
 
 
-    // Orders
-    Route::get('/orders', function () {
-        return view('admin.orders');
-    })->name('admin.orders');
-
-    
     Route::get('/displayreview', [emailReviewController::class, 'index'])->name('displayreview.index');
 
     Route::resource('reviews', ReviewController::class);

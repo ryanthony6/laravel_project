@@ -112,12 +112,6 @@
                             class="d-flex text-white align-items-center gap-2">@include('icons/schedule')Schedules</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="d-flex text-white align-items-center gap-2">@include('icons/order')
-                            Orders</a>
-                    </li>
-                    
-                    <li>
                         <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle text-white align-items-center">
                             @include('icons/comment') Comment
@@ -152,12 +146,6 @@
     <!-- Data table -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
-
     <script src="{{ asset('js/admin.js') }}"></script>
 </body>
 

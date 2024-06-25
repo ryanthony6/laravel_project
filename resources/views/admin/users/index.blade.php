@@ -1,11 +1,5 @@
 @extends('layouts.admin')
 
-<style>
-    .dt-length .dt-input {
-        margin-right: 10px !important;
-    }
-</style>
-
 @section('content')
     <main class="container px-3">
 
@@ -37,22 +31,17 @@
 
             <!-- Table -->
             <div class="container mt-3"></div>
-                <table class="table table-striped" id="dataTable">
+                <table class="table table-striped compact cell-border dt-center dt-left" id="dataTable">
                 <thead>
                     <tr>
-                        <th class="col-md-1">No.</th>
-                        <th class="col-md-2">Name</th>
-                        <th class="col-md-2">Email</th>
-                        <th class="col-md-2">Role</th>
-                        <th class="col-md-2">Action</th>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($users->isEmpty())
-                        <tr>
-                            <td colspan="4">Tidak ada data yang tersedia.</td>
-                        </tr>
-                    @else
                         <?php $i = $users->firstItem(); ?>
                         @foreach ($users as $user)
                             <tr>
@@ -75,7 +64,6 @@
                             </tr>
                             <?php $i++; ?>
                         @endforeach
-                    @endif
                 </tbody>
                 </table>
             </div>
