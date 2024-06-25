@@ -2,18 +2,18 @@
 
 @section('content')
     <section>
-        <div class="container mt-5" style="padding-top: 40px;">
-            <div class="day-nav mb-3 d-flex justify-content-start">
+        <div class="container pt-5" >
+            <div class="day-nav mb-3 d-flex justify-content-start pt-5">
                 @foreach ($dates as $key => $value)
                     <a href="{{ $isToday && $key == date('Y-m-d') ? url('booking') : url('booking?date=' . $key) }}"
-                        class="btn btn-link {{ $selectedDate == $key ? 'active' : '' }}">{{ $value }}</a>
+                        class="btn {{ $selectedDate == $key ? 'active' : '' }}">{{ $value }}</a>
                 @endforeach
             </div>
             <h1 class="mb-4">{{ $fullDate }}</h1>
 
             <div class="card cardBooking mx-auto" style="max-width: 1500px;">
                 <div class="card-header text-center">
-                    Available Courts
+                    Available Schedule
                 </div>
                 <div class="card-body">
                     <div class="row">
