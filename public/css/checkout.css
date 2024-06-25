@@ -1,140 +1,249 @@
-/* General Styling */
 body {
-    background-color: #f2f2f6;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#checkout-page {
-    margin: 6rem;
-    margin-top: 13rem;
-    /* background-color: #007bff; */
-}
-
-.container {
-    margin-top: 20px;
-}
-
-/* Card Styling */
 .card {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-}
-
-/* Payment Details Styling */
-#payment-details .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
     margin-bottom: 20px;
 }
 
-#payment-details .card-header {
-    background-color: #343a40;
-    color: white;
-}
-
-#payment-details .card-body p {
-    margin: 0;
-}
-
-/* Summary Card Styling */
-#summary-details {
-    padding: 20px;
-}
-
-.divider-dash {
-    border-top: 2px dashed #999;
-}
-
-/* Checkout Button */
-.checkout-button {
+.card-header {
+    background-color: #177d00;
     text-align: center;
-}
-
-.checkout-button .btn {
-    background-color: #28a745;
     color: white;
-    font-size: 18px;
+    font-size: 22px;
+    padding: 15px 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Payment Option Styling */
-.payment-option {
+.card-body {
+    background-color: #ffffff;
+    padding: 25px;
+    color: #333;
+    font-size: 16px;
+    overflow: hidden;
+    width: 400px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
-    cursor: pointer;
+    height: 100%;
+}
+
+.booking-detail {
+    border-left: 5px solid #0e4d00;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
-.payment-option label {
-    margin-left: 10px;
-    flex-grow: 1;
+.booking-detail div {
+    margin-bottom: 20px;
+    border-left: 5px solid #0e4d00;
+    padding-left: 10px;
+    background-color: #f9f9f9;
 }
 
-.payment-option img {
-    height: 30px;
-    width: auto;
+.booking-detail p,
+.summary-line p {
+    margin-bottom: 5px;
 }
 
-.payment-option .btn-danger {
-    margin-left: 10px;
+.dashed {
+    border-top: 2px dashed #ccc;
 }
 
-/* Add Payment Method */
-.add-payment {
-    color: #007bff;
+.checkout-button button {
+    background-color: #24870e;
+    color: white;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 8px;
     cursor: pointer;
-    text-decoration: underline;
+    transition: background-color 0.3s;
+    width: 100%; /* Lebarkan tombol checkout */
 }
 
-.add-payment:hover {
-    text-decoration: none;
+.checkout-button button:hover {
+    background-color: #0e4502;
 }
 
-/* Modal Styling */
-.modal-header {
-    background-color: #007bff;
-    color: white;
-}
-
-.modal-header .close {
-    color: white;
+.no-details {
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    color: #666;
+    border-left: none !important;
+    background: none;
 }
 
 .modal-content {
-    border-radius: 10px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    font-size: 18px;
+    border-bottom: 2px solid #e5e5e5;
 }
 
 .modal-body {
     padding: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.form-check {
+    margin-bottom: 15px;
+}
+
+.form-check-input {
+    margin-top: 0.3em;
 }
 
 .form-check-label {
     margin-left: 5px;
+    font-weight: normal;
 }
 
-#phoneNumberInput {
-    display: none;
+.form-group {
+    margin-bottom: 20px;
 }
 
-#phoneNumberInput input {
-    width: 100%;
+.form-control {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
 }
 
-#confirmPaymentMethod {
-    background-color: #007bff;
-    color: white;
+.btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
 }
 
-/* Total Amount Styling */
-#totalAmount {
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn-secondary {
+    background-color: #f4f4f4;
+    color: #333;
+    border-color: #ccc;
+    transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #e2e2e2;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-top: 2px dashed #ccc;
+}
+
+.modal-footer .price {
     font-size: 20px;
-    font-weight: bold;
-    text-align: right;
+    color: #333;
+    margin-bottom: 0;
+    flex-grow: 1;
 }
 
+.modal-footer {
+    background-color: #24870e;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
 
 .pay-button {
-    background-color: #28a745;
+    background-color: #24870e;
     color: white;
+    padding: 10px 20px;
     font-size: 18px;
-    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: calc(100% - 40px);
+    margin: 10px 20px 20px;
+}
+
+#payment-methods {
+    margin-bottom: 20px;
+}
+
+.add-payment {
     margin-top: 20px;
+}
+
+.modal-footer .pay-button:hover {
+    background-color: #0e4502;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+.payment-option:hover {
+    background-color: #f0f0f0;
+}
+
+.payment-option.selected {
+    border-color: #24870e;
+    background-color: #e6ffe6;
+}
+
+.payment-option img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.payment-option label {
+    margin: 0;
+    flex-grow: 1;
+    font-size: 16px;
+    color: #333;
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 10px;
 }

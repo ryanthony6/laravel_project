@@ -9,7 +9,7 @@
                         class="btn {{ $selectedDate == $key ? 'active' : '' }}">{{ $value }}</a>
                 @endforeach
             </div>
-            <h1 class="mb-4">{{ $fullDate }}</h1>
+            <h1 id="full-date" class="mb-4">{{ $fullDate }}</h1>
 
             <div class="card cardBooking mx-auto" style="max-width: 1500px;">
                 <div class="card-header text-center">

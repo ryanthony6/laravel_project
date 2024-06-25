@@ -1,8 +1,6 @@
-
-var fullDate = "{{$fullDate}}";
+var fullDate = document.getElementById('full-date').textContent.trim();
 document.addEventListener('DOMContentLoaded', function() {
     const courts = document.querySelectorAll('.court-status.available');
-    // const checkoutForm = document.getElementById('checkout-form');
     const bookingDetailsInput = document.getElementById('booking_details');
     const courtSelections = {};
 
@@ -22,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 courtSelections[courtId] = {
                     times: [],
                     date: fullDate,
-                    price: price
+                    pricePerHour: price
                 };
             }
 
@@ -46,7 +44,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.querySelector('.checkout-button button').addEventListener('click', function() {
+        if (Object.keys(courtSelections).length === 0) {
+            alert('Please select a court first');
+            return;
+        }
         localStorage.setItem('courtSelections', JSON.stringify(courtSelections));
-        window.location.href = '/checkout';
+        localStorage.setItem('fullDate', fullDate); // Save fullDate to localStorage
+        if (Object.keys(courtSelections).length > 0) {
+            window.location.href = '/checkout';
+        }
     });
 });
+
