@@ -16,7 +16,7 @@
             <table class="table table-striped compact cell-border dt-center dt-left" id="dataTable">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Email</th>
                         <th>Court</th>
                         <th>Date</th>
                         <th>Time</th>
@@ -26,7 +26,7 @@
                 <tbody>
                     @foreach ($bookings as $booking)
                         <tr>
-                            <td>{{ $booking->user_name }}</td>
+                            <td>{{ $booking->user_email }}</td>
                             <td>{{ $booking->court_id }}</td>
                             <td>{{ $booking->date }}</td>
                             <td>{{ $booking->time }}</td>
