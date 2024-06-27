@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookConfirm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Schedule;
 use App\Models\Booking;
 use Carbon\Carbon;
+
 use Carbon\CarbonPeriod;
 
 date_default_timezone_set('Asia/Jakarta');
@@ -107,40 +109,44 @@ class BookingController extends Controller
         $bookingDetails = session('booking_details');
         $userId = Auth::id(); // Ambil ID pengguna yang sedang login
         $totalPrice = 0;
-
+    
         foreach ($bookingDetails as $courtId => $details) {
             foreach ($details['times'] as $timeRange) {
                 $timeParts = explode(' - ', $timeRange);
                 $startTime = $timeParts[0];
                 $scheduleDate = date('Y-m-d', strtotime($details['date']));
                 $scheduleDateTime = $scheduleDate . ' ' . $startTime;
-
+    
                 $schedule = Schedule::where('court', str_replace('Court ', '', $courtId))
                                     ->where('schedule', $scheduleDateTime)
                                     ->first();
-
+    
                 if ($schedule) {
                     $schedule->status = 'booked';
                     $schedule->user_id = $userId; // Set user_id
                     $schedule->save();
-
+    
                     // Simpan data booking ke dalam database bookings
-                    Booking::create([
-                        'user_email' => Auth::user()->email, // Changed from user_name to user_email
+                    $booking = Booking::create([
+                        'user_email' => Auth::user()->email,
                         'court_id' => $schedule->court,
                         'date' => $scheduleDate,
                         'time' => $startTime,
                         'total_price' => $schedule->price
                     ]);
-
+    
                     $totalPrice += $schedule->price;
+    
+                    // Kirim email konfirmasi booking
+                    Mail::to(Auth::user()->email)->send(new BookConfirm($booking));
                 }
             }
         }
-
+    
         // Hapus booking details dari session setelah pembayaran berhasil
         session()->forget('booking_details');
-
+    
         return redirect()->route('home.index')->with('success', 'Payment success, Booking successfully processed!');
     }
+    
 }
