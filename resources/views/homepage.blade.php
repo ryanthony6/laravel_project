@@ -3,10 +3,11 @@
 @section('content')
     <section id="hero_section" style="background-image: url('{{ asset('Images/badminton_field.png') }}')">
         <div class="container text-center container-hero ">
-            <h1 class="display-4 text-white title-hero">Introduce Your Product Quickly & Effectively</h1>
+            <h1 class="display-4 text-white title-hero">Book Your Badminton Court with Ease</h1>
             <p class="lead text-white px-md-3">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
-                sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                Join the fastest and easiest way to book badminton courts in your area. Whether you're a seasoned player or
+                just starting out, our app helps you find, reserve, and enjoy your game without the hassle. Get started now
+                and elevate your badminton experience!
             </p>
             <a class="btn btn-primary btn-lg mt-3" href="#field_section" role="button">Book Now!</a>
         </div>
