@@ -38,38 +38,4 @@
             </div>
         </div>
     </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const cancelButtons = document.querySelectorAll('.btn-cancel-booking');
-
-            cancelButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const bookingId = this.dataset.bookingId;
-
-                    if (confirm('Are you sure you want to cancel this booking?')) {
-                        fetch(`/cancel-booking/${bookingId}`, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                }
-                            }).then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('Booking cancelled successfully');
-                                    location.reload();
-                                } else {
-                                    alert('Failed to cancel booking');
-                                }
-                            }).catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred while cancelling the booking');
-                            });
-                    }
-                });
-            });
-        });
-    </script>
-
 @endsection
