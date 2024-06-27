@@ -126,7 +126,7 @@ class BookingController extends Controller
 
                     // Simpan data booking ke dalam database bookings
                     Booking::create([
-                        'user_name' => Auth::user()->name,
+                        'user_email' => Auth::user()->email, // Changed from user_name to user_email
                         'court_id' => $schedule->court,
                         'date' => $scheduleDate,
                         'time' => $startTime,
