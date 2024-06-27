@@ -17,8 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card-body">
                     <h5>${courtId}</h5>
                     <p>${fullDate}</p>
-                    <div class="justify-content-between">
-                    <p>${times.join(", ")}</p>
+                    <div class="d-flex justify-content-between align-items-start">
+                    <p>${times
+                        .map(
+                            (time) =>
+                                `<span class="badge bg-secondary">${time}</span>`
+                        )
+                        .join(" ")}</p>
+
                     <strong>Rp ${price.toLocaleString()}</strong>
                     </div>
                     </div>
@@ -44,14 +50,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 '<div class="no-details">No payment details</div>';
             summaryDetails.innerHTML =
                 '<div class="no-details">No summary details</div>';
-            totalDetails.innerHTML = 'Total: Rp 0'; // No cost
+            totalDetails.innerHTML = "Total: Rp 0"; // No cost
         }
     } else {
         paymentDetails.innerHTML =
             '<div class="no-details">No payment details</div>';
         summaryDetails.innerHTML =
             '<div class="no-details">No summary details</div>';
-        totalDetails.innerHTML = 'Total: Rp 0'; // No cost
+        totalDetails.innerHTML = "Total: Rp 0"; // No cost
     }
 
     // Set hidden input values
@@ -63,3 +69,5 @@ document.addEventListener("DOMContentLoaded", function () {
             courtSelections[Object.keys(courtSelections)[0]].times.join(", ");
     }
 });
+
+

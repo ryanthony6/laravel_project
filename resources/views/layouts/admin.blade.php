@@ -91,11 +91,7 @@
                         <a href="{{ route('admin.home') }}" class="d-flex text-white align-items-center gap-1">
                             @include('icons/dashboard-layout') Dashboard
                         </a>
-                    <li class="{{ Route::is('admin.statistics') ? 'active' : '' }}">
-                        <a href="{{ route('admin.statistics') }}" class="d-flex text-white align-items-center gap-2">
-                            @include('icons/chart') Statistics</a>
-                    </li>
-
+                  
                     <li class="{{ Route::is('users.index') ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}" class="d-flex text-white align-items-center gap-2">
                             @include('icons/user') Users</a>

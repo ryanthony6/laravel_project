@@ -1,8 +1,4 @@
-@unless (Route::is('login') ||
-        Route::is('register') ||
-        Route::is('password.request') ||
-        Route::is('profile.index') ||
-        Route::is('bookingtes.index'))
+@unless (Route::is('login') || Route::is('register') || Route::is('password.request') || Route::is('profile.index'))
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container">
@@ -88,9 +84,9 @@
 @endunless
 
 @if (Route::is('booking.index') || Route::is('booking.history'))
-    <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #40A578">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}" style="color: black;">
+            <a class="navbar-brand" href="{{ url('/') }}" style="color: #fff;">
                 Cahaya Sports
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -103,10 +99,10 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav ms-auto gap-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home.index') }}" style="color: black;">Home</a>
+                        <a class="nav-link text-white" href="{{ route('home.index') }}" >Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('booking.index') }}" style="color: black;">Book</a>
+                        <a class="nav-link text-white" href="{{ route('booking.index') }}" >Book</a>
                     </li>
                 </ul>
 
@@ -116,22 +112,22 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item ">
-                                <a class="nav-link" href="{{ route('login') }}"
-                                    style="color: black;">{{ __('Login') }}</a>
+                                <a class="nav-link text-white" href="{{ route('login') }}"
+                                    >{{ __('Login') }}</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}"
-                                    style="color: black;">{{ __('Register') }}</a>
+                                <a class="nav-link text-white" href="{{ route('register') }}"
+                                    >{{ __('Register') }}</a>
                             </li>
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link text-white dropdown-toggle " href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre
-                                style="color: black;">
+                                >
                                 <img src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('images/ProfilePic.png') }}"
                                     alt="{{ Auth::user()->image ? 'User Image' : 'Default Image' }}"
                                     class="rounded-circle" width="30" height="30" style="margin-right: 10px;">
@@ -142,6 +138,9 @@
                                 @if (Auth::user()->role !== 'admin')
                                     <a class="dropdown-item" href="{{ route('profile.index') }}">
                                         {{ __('Edit Profile') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('booking.history') }}">
+                                        {{ __('Booking History') }}
                                     </a>
                                 @endif
                                 @if (Auth::user()->role === 'admin')

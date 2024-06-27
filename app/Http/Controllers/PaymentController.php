@@ -8,6 +8,33 @@ use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
+
+    public function index()
+    {
+        $payments = Payment::where('user_id', auth()->id())->get();
+
+        return view('payments/checkout', compact('payments'));
+        
+    }
+
+    public function show()
+    {
+        $payments = Payment::where('user_id', auth()->id())->get();
+        
+        return view('payments/show', compact('payments'));
+    }
+
+    public function create()
+    {
+        return view('payments/create');
+    }
+
+    public function confirm()
+    {
+        return view('payments/confirmation');
+    }
+
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -30,25 +57,15 @@ class PaymentController extends Controller
         $payment->user_id = auth()->id(); // Set user ID
         $payment->save();
 
-        return response()->json(['message' => 'Payment method added successfully.']);
+        return redirect()->back()->with('success', 'Payment processed successfully!');
+
     }
 
-    public function getPayments()
+    
+    public function destroy(string $id)
     {
-        $payments = Payment::where('user_id', auth()->id())->get();
-        return view('checkout', compact('payments'));
-    }
-
-    public function delete(Request $request)
-    {
-        $paymentMethod = $request->input('payment_method');
-
-        $result = Payment::where('payment_method', $paymentMethod)->delete();
-
-        if ($result) {
-            return response()->json(['message' => 'Payment method deleted successfully']);
-        } else {
-            return response()->json(['message' => 'Failed to delete payment method'], 400);
-        }
-    }
-}
+        $payments = Payment::find($id);
+        $payments->delete();
+        
+        return redirect()->back()->with('success', 'Payment processed successfully!');
+    }}

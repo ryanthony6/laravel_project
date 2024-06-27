@@ -13,6 +13,11 @@ body {
     font-family: signika, sans-serif;
 }
 
+.user-history{
+    background-color: var(--bg-color);
+    min-height: 100vh;
+}
+
 /* Navbar */
 .scroll-nav-active {
     background-color: #fff;

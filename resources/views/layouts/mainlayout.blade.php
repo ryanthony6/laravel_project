@@ -29,7 +29,6 @@
 
 <!-- Custom CSS -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<link href="{{ asset('css/Booking.css') }}" rel="stylesheet">
 
 <!-- Scripts -->
 {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
