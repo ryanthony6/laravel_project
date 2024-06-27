@@ -32,9 +32,7 @@
                                      **********{{ substr($payment->phone_number, -2) }}
                                  </label>
 
-                                 <form action="{{ route('payments.delete', $payment->id) }}" method="POST"
-                                     class="d-inline"
-                                     onsubmit="return confirm('Are you sure you want to delete this schedule?');">
+                                 <form action="{{ route('payments.delete', $payment->id) }}" method="POST" class="d-inline" onsubmit="return confirmDelete(event);">
                                      @method('delete')
                                      @csrf
                                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -52,7 +50,7 @@
                      @endif
                  </div>
                  <hr class="dashed">
-                 <div class="price" id="totalAmount">Total: </div>
+                 <div class="price" id="total-details"> </div>
              </div>
              <input type="hidden" name="user_name" value="{{ Auth::user()->name }}">
              <input type="hidden" name="court_id" id="courtId">
@@ -65,3 +63,22 @@
          </div>
      </div>
  </div>
+
+<script>
+    function confirmDelete(event) {
+        event.preventDefault(); // Prevent the form from submitting immediately
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this imaginary file!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                event.target.submit(); // Submit the form if confirmed
+            }
+        });
+        return false; // Prevent the form from submitting immediately
+    }
+</script>

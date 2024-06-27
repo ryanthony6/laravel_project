@@ -32,6 +32,7 @@ class PaymentController extends Controller
     public function confirm()
     {
         return view('payments/confirmation');
+        return redirect()->back()->with('success', 'Payment success, court is now booked');
     }
 
     
@@ -47,7 +48,7 @@ class PaymentController extends Controller
                                   ->where('user_id', auth()->id())
                                   ->first();
         if ($existingPayment) {
-            return response()->json(['message' => 'You already added this payment method.'], 400);
+            return redirect()->back()->with('error', 'You already added this payment method.');
         }
 
         // Tambahkan metode pembayaran baru
@@ -57,7 +58,7 @@ class PaymentController extends Controller
         $payment->user_id = auth()->id(); // Set user ID
         $payment->save();
 
-        return redirect()->back()->with('success', 'Payment processed successfully!');
+        return redirect()->back()->with('success', 'Payment added successfully!');
 
     }
 
@@ -67,5 +68,5 @@ class PaymentController extends Controller
         $payments = Payment::find($id);
         $payments->delete();
         
-        return redirect()->back()->with('success', 'Payment processed successfully!');
+        return redirect()->back()->with('success', 'Payment deleted successfully!');
     }}

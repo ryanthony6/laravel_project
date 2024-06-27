@@ -49,9 +49,14 @@
                             <div class="d-flex justify-content-center mt-4">
                                 <button type="submit" class="btn btn-primary mr-2">Update</button>
                                 <a href="{{ route('home.index') }}" class="btn btn-secondary mr-2">Back to home</a>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal">Delete Account</button>
+                                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Account</button>
                             </div>
                         </form>
+                        <form id="deleteAccountForm" action="{{ route('profile.destroy') }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -59,29 +64,21 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteAccountModalLabel">Delete Account</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete your account? This action cannot be undone.
-            </div>
-            <div class="modal-footer">
-                <form action="{{ route('profile.destroy') }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete Account</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
+<script>
+    function confirmDelete() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Are you sure you want to delete your account? This action cannot be undone.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteAccountForm').submit();
+            }
+        });
+    }
+</script>
 
 @endsection

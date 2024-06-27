@@ -26,6 +26,7 @@
 
 <!-- Owl Carousel CSS -->
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css'>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
 <!-- Custom CSS -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -71,8 +72,25 @@
             $('#historyTable').DataTable();
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ session('success') }}',
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ session('error') }}',
+            });
+        @endif
+    </script>
 </body>
-
 </html>

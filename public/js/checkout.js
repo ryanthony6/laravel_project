@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>`;
 
             totalDetails.innerHTML = `Total: Rp ${totalCost.toLocaleString()}`;
+
         } else {
             paymentDetails.innerHTML =
                 '<div class="no-details">No payment details</div>';

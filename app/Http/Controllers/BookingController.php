@@ -141,6 +141,6 @@ class BookingController extends Controller
         // Hapus booking details dari session setelah pembayaran berhasil
         session()->forget('booking_details');
 
-        return redirect()->route('home.index');
+        return redirect()->route('home.index')->with('success', 'Payment success, Booking successfully processed!');
     }
 }

@@ -116,3 +116,7 @@
 .edit-icon:hover {
     color: #0056b3; /* Warna saat ikon edit dihover */
 }
+
+.error-message{
+    color: red;
+}

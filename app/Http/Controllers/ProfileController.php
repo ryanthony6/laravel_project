@@ -24,7 +24,7 @@ class ProfileController extends Controller
         Auth::logout();
 
     // Redirect ke halaman lain setelah penghapusan akun
-        return redirect()->route('home')->with('success', 'Your account has been deleted successfully.');
+        return redirect()->route('login')->with('success', 'Your account has been deleted successfully.');
     }
 
     public function update(Request $request)
