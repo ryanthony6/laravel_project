@@ -35,24 +35,38 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.classList.add('selected');
                     courtSelections[courtId].times.push(timeRange);
                 } else {
-                    alert('You can only select a court for a maximum of 5 hours.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'You can only select a court for a maximum of 5 hours.',
+                    });
                 }
             }
-
             updateBookingDetails();
         });
     });
 
-    document.querySelector('.checkout-button button').addEventListener('click', function() {
-        if (Object.keys(courtSelections).length === 0) {
-            alert('Please select a court first');
-            return;
+    document.querySelector('.checkout-button button').addEventListener('click', function(event) {
+        let hasSelection = false;
+        for (const courtId in courtSelections) {
+            if (courtSelections[courtId].times.length > 0) {
+                hasSelection = true;
+                break;
+            }
         }
+
+        if (!hasSelection) {
+            event.preventDefault(); // Prevent default form submission or link navigation
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select a court first',
+            });
+            return; // Prevents further execution
+        }
+
         localStorage.setItem('courtSelections', JSON.stringify(courtSelections));
         localStorage.setItem('fullDate', fullDate); // Save fullDate to localStorage
-        if (Object.keys(courtSelections).length > 0) {
-            window.location.href = '/checkout';
-        }
+        window.location.href = '/checkout';
     });
 });
-

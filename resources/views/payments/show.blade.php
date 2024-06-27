@@ -25,7 +25,7 @@
                              <div class="payment-option">
                                  <input type="radio" name="paymentMethod" value="{{ $payment->payment_method }}"
                                      id="{{ $payment->payment_method }}" hidden>
-                                 <label for="{{ $payment->payment_method }}">
+                                 <label for="{{ $payment->payment_method }}" class="payment-label">
                                      <img src="{{ asset('images/' . $payment->payment_method . '.png') }}"
                                          alt="{{ ucfirst($payment->payment_method) }} Logo" class="payment-logo">
                                      {{ ucfirst($payment->payment_method) }}:
@@ -57,8 +57,7 @@
              <input type="hidden" name="date" id="bookingDate">
              <input type="hidden" name="time" id="bookingTime">
              <input type="hidden" name="total_price" id="totalPrice">
-             <button type="button" class="pay-button btn btn-success" data-toggle="modal"
-                 data-target="#confirmPaymentModal">Confirm</button>
+             <button type="button" class="pay-button btn btn-success" id="openConfirmModalButton">Confirm</button>
 
          </div>
      </div>
@@ -81,4 +80,28 @@
         });
         return false; // Prevent the form from submitting immediately
     }
+
+    document.getElementById('openConfirmModalButton').addEventListener('click', function(event) {
+        const selectedPaymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+        if (!selectedPaymentMethod) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select a payment method first',
+            });
+            return; // Prevents further execution
+        }
+
+        // Show the confirm payment modal
+        $('#confirmPaymentModal').modal('show');
+    });
+
+    document.querySelectorAll('input[name="paymentMethod"]').forEach((input) => {
+        input.addEventListener('change', function() {
+            document.querySelectorAll('.payment-option').forEach((option) => {
+                option.classList.remove('selected');
+            });
+            this.closest('.payment-option').classList.add('selected');
+        });
+    });
 </script>

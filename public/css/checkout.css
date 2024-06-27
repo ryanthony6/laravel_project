@@ -85,9 +85,17 @@ body {
     border-radius: 5px;
 }
 
+.payment-option.selected {
+    background-color: #d1e7dd;
+    border-color: #0f5132;
+    cursor: pointer;
+}
+
+
 .payment-option label {
     margin-left: 10px;
     flex-grow: 1;
+    cursor: pointer;
 }
 
 .payment-option .btn-danger {

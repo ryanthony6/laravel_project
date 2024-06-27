@@ -11,10 +11,17 @@
                     <p>Are you sure you want to proceed with this payment?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                    <button type="submit" form="bookingForm" class="btn btn-success">Confirm Payment</button>
+                    <button type="submit" form="bookingForm" class="btn btn-success" id="confirmPaymentButton">Confirm Payment</button>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+<script>
+    document.getElementById('confirmPaymentButton').addEventListener('click', function() {
+        // Remove items from localStorage
+        localStorage.removeItem('courtSelections');
+        localStorage.removeItem('fullDate');
+    });
+</script>
