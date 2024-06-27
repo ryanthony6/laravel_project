@@ -1,7 +1,7 @@
 html,
 body {
     height: 100%;
-    
+
     background-color: #efeff6;
 }
 
@@ -83,4 +83,16 @@ body {
     margin-top: 5px;
     font-size: 14px;
     color: #666;
+}
+
+.dt-length .dt-input {
+    margin-right: 10px !important;
+}
+
+.dt-center th {
+    text-align: left !important;
+}
+
+.dt-left td {
+    text-align: left !important;
 }

@@ -26,7 +26,7 @@
                                             <label for="name" class="form-label">Name</label>
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                    {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>
@@ -38,7 +38,7 @@
                                             <label for="email" class="form-label">Email address</label>
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                    {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>
@@ -50,7 +50,7 @@
                                             <label class="form-label" for="password">Password</label>
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
+                                                    {{ $message }}
                                                 </span>
                                             @enderror
                                         </div>

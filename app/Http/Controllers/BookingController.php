@@ -76,7 +76,7 @@ class BookingController extends Controller
     public function showPaymentPage(Request $request)
     {
         $bookingDetails = $request->input('booking_details');
-        return view('checkout', compact('bookingDetails'));
+        return view('payments/checkout', compact('bookingDetails'));
     }
 
     public function processCheckout(Request $request)
@@ -87,7 +87,7 @@ class BookingController extends Controller
         session(['booking_details' => $bookingDetails]);
 
         // Redirect ke halaman checkout
-        return redirect()->route('checkout.index');
+        return redirect()->route('payments.index');
     }
 
     public function checkout()
@@ -99,7 +99,7 @@ class BookingController extends Controller
             return redirect()->route('booking.index')->with('error', 'No booking details found.');
         }
 
-        return view('checkout', compact('bookingDetails'));
+        return view('payments/checkout', compact('bookingDetails'));
     }
 
     public function processPayment(Request $request)
@@ -141,6 +141,6 @@ class BookingController extends Controller
         // Hapus booking details dari session setelah pembayaran berhasil
         session()->forget('booking_details');
 
-        return response()->json(['success' => true, 'message' => 'Booking successful and courts are now booked.']);
+        return redirect()->route('home.index');
     }
 }

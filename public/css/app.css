@@ -2,7 +2,7 @@
 
 :root {
     --primary-color: #006769;
-    --secondary-color: #40a578;
+    --secondary-color: #0D9276;
     --tertiary-color: #e6ff94;
     --bg-color: #f2f2f6;
     --grey: #666288;
@@ -11,6 +11,11 @@
 
 body {
     font-family: signika, sans-serif;
+}
+
+.user-history{
+    background-color: var(--bg-color);
+    min-height: 100vh;
 }
 
 /* Navbar */
@@ -57,19 +62,15 @@ body {
     border-color: #005153 !important;
 }
 
-#field_section {
-    background-color: var(--bg-color);
-    min-height: 130vh;
+
+#services{
+    background-color: #f2f2f6;
 }
 
-.card {
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+.border-primary {
+    border-color: var(--primary-color) !important;
 }
 
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-}
 
 #testimonials-section {
     background-color: var(--secondary-color);
@@ -162,7 +163,6 @@ body {
     min-height: 100vh;
 }
 
-#field_section,
 #contact-us {
     padding-top: 5rem;
 }
@@ -175,14 +175,91 @@ body {
     flex: 1;
 }
 
+.day-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.day-nav a {
+    margin: 0 5px;
+}
+
+.day-nav a.active {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.time-slot {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.time-label {
+    width: 60px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.court-status {
+    padding: 10px;
+    border-radius: 20px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    flex: 1;
+    max-width: 185px;
+    min-width: 185px;
+    box-sizing: border-box;
+}
+
+.court-status.available {
+    background-color: #f8f9fa;
+    color: #000;
+    cursor: pointer;
+}
+
+.court-status.unavailable {
+    background-color: #EEEEEE;
+    color: #686D76;
+}
+
+.court-status.booked {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.court-status.selected {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.dotted-line {
+    border: none;
+    border-top: 2px dotted black;
+}
+
+.checkout-button button {
+    background-color: #28a745;
+    color: #ffffff;
+}
 
 
-.bg-footer {
+
+
+
+
+
+#footer {
     background-color: var(--primary-color);
 }
 
-.footer-icon {
-    color: #fff;
+.link-footer{
+    color: #fff !important;
+}
+
+.text-love{
+    color: #04c601;
 }
 
 @media (max-width: 768px) {

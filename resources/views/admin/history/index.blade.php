@@ -8,36 +8,33 @@
 
             <!-- TOMBOL TAMBAH DATA -->
             <div class="pb-3">
-                <h4>Review from visitors</h4>
+                <h4>Booking history</h4>
             </div>
 
             <!-- Table -->
+
             <table class="table table-striped compact cell-border dt-center dt-left" id="dataTable">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>Email</th>
-                        <th>Nama</th>
-                        <th>Comment</th>
+                        <th>Name</th>
+                        <th>Court</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Price</th>
                     </tr>
                 </thead>
                 <tbody>
-
-                    <?php $i = $visitorReviews->firstItem(); ?>
-                    @foreach ($visitorReviews as $review)
+                    @foreach ($bookings as $booking)
                         <tr>
-                            <td>{{ $i }}</td>
-                            <td>{{ $review->email }}</td>
-                            <td>{{ $review->name }}</td>
-                            <td>{{ $review->message }}</td>
+                            <td>{{ $booking->user_name }}</td>
+                            <td>{{ $booking->court_id }}</td>
+                            <td>{{ $booking->date }}</td>
+                            <td>{{ $booking->time }}</td>
+                            <td>{{ $booking->total_price }}</td>
                         </tr>
-                        <?php $i++; ?>
                     @endforeach
-
                 </tbody>
             </table>
-
         </div>
-        <!-- AKHIR DATA -->
     </main>
 @endsection

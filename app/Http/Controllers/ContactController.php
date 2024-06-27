@@ -31,6 +31,8 @@ class ContactController extends Controller
         ]);
   
         Contact::create($request->all());
+        // Kirim respons JSON untuk AJAX
+        return response()->json(['message' => 'Pesan berhasil terkirim!']);
   
         return redirect()->back()
                          ->with(['success' => 'Thank you for contact us. we will contact you shortly.']);

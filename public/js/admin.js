@@ -35,3 +35,24 @@ if (successAlert) {
     removeAlert("successAlert");
 }
 
+$(document).ready(function () {
+    $("#dataTable").DataTable({
+        responsive: true,
+        columnDefs: [
+            { orderable: false, targets: -1 }, // Disable ordering on the last column (if you have actions there)
+        ],
+        pageLength: 10,
+        pagingType: "full_numbers",
+        order: [[0, "asc"]],
+        searching: true,
+        language: {
+            paginate: {
+                first: "First",
+                last: "Last",
+                next: "Next",
+                previous: "Previous",
+            },
+            emptyTable: "No data available in table",
+        },
+    });
+});

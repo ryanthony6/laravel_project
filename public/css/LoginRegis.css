@@ -1,3 +1,7 @@
 .form-outline {
     margin-bottom: 1.8rem;
 }
+
+.invalid-feedback{
+    font-size: 0.7rem;
+} 

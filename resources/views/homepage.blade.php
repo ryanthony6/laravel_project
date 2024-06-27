@@ -12,22 +12,57 @@
         </div>
     </section>
 
-    <section id="field_section">
+    <section class="py-5 py-xl-8" id="services">
         <div class="container">
-            <h2 class="text-center pb-4">Available Schedule</h2>
-            <div class="row">
-                @for ($i = 1; $i <= 6; $i++)
-                    <div class="col-md-4 mb-5 mb-md-4">
-                        <div class="card">
-                            <img src="{{ asset('/Images/badminton_field.png') }}" class="card-img-top" alt="Lapangan">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">Lapangan {{ $i }}</h5>
-                                <h5 class="card-title">Rp. 100.000 / jam</h5>
-                                <a href="{{ route('booking.index') }}" class="btn btn-primary">Details</a>
-                            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+                    <h3 class="fs-6 mb-2 text-secondary text-center text-uppercase">What We offer?</h3>
+                    <h2 class="display-6 mb-5 text-center">We are giving you perfect solutions with our proficient services.
+                    </h2>
+                    <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
+                </div>
+            </div>
+        </div>
+
+        <div class="container overflow-hidden">
+            <div class="row gy-3 gy-xl-0 justify-content-center">
+                <div class="col-12 col-sm-6 col-xl-3 d-flex justify-content-center">
+                    <div class="card border-0 border-bottom border-primary shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            @include('icons/userfriendly')
+
+                            <h4 class="mb-4">User Friendly</h4>
+                            <p class="mb-4 text-secondary">Enjoy the convenience of booking badminton courts through our
+                                platform. With just a few clicks, you can reserve a court at your preferred time.</p>
                         </div>
                     </div>
-                @endfor
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="card border-0 border-bottom border-primary shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            @include('icons/quality')
+                            <h4 class="mb-4">High-Quality Courts</h4>
+                            <p class="mb-4 text-secondary">We offer a variety of high-quality badminton courts that meet
+                                international standards. All our courts are well-maintained to ensure the best playing
+                                experience.</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="card border-0 border-bottom border-primary shadow-sm">
+                        <div class="card-body text-center p-4 p-xxl-5">
+                            @include('icons/wallet')
+                            <h4 class="mb-4">Competitive Pricing</h4>
+                            <p class="mb-4 text-secondary">Experience exceptional value with our competitive pricing for
+                                badminton court bookings. We ensure that you get the best rates without compromising on
+                                quality.
+
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -67,7 +102,7 @@
                 </div>
                 <div class="col-md-6">
                     <!-- Contact Form -->
-                    <form action="{{ route('contact.us.store') }}" method="POST">
+                    <form id="contactForm" action="{{ route('contact.us.store') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="mb-3">
                             <!-- Name Input with Icon -->

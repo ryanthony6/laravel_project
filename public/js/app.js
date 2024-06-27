@@ -42,3 +42,39 @@
       navbar.classList.add("navbar-dark");
     }
   }
+
+  $(document).ready(function () {
+    $('#contactForm').submit(function (e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+        var method = form.attr('method');
+        var formData = form.serialize();
+
+        $.ajax({
+            type: method,
+            url: url,
+            data: formData,
+            success: function (response) {
+                // Tampilkan SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: response.message
+                });
+
+                // Clear form jika perlu
+                form.trigger('reset');
+            },
+            error: function (error) {
+                // Tampilkan SweetAlert untuk error jika diperlukan
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!'
+                });
+            }
+        });
+    });
+});

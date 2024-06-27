@@ -91,11 +91,7 @@
                         <a href="{{ route('admin.home') }}" class="d-flex text-white align-items-center gap-1">
                             @include('icons/dashboard-layout') Dashboard
                         </a>
-                    <li class="{{ Route::is('admin.statistics') ? 'active' : '' }}">
-                        <a href="{{ route('admin.statistics') }}" class="d-flex text-white align-items-center gap-2">
-                            @include('icons/chart') Statistics</a>
-                    </li>
-
+                  
                     <li class="{{ Route::is('users.index') ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}" class="d-flex text-white align-items-center gap-2">
                             @include('icons/user') Users</a>
@@ -111,12 +107,6 @@
                         <a href="{{ route('schedules.index') }}"
                             class="d-flex text-white align-items-center gap-2">@include('icons/schedule')Schedules</a>
                     </li>
-                    <li>
-                        <a href="#"
-                            class="d-flex text-white align-items-center gap-2">@include('icons/order')
-                            Orders</a>
-                    </li>
-                    
                     <li>
                         <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
                             class="dropdown-toggle text-white align-items-center">
@@ -152,12 +142,6 @@
     <!-- Data table -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
-
     <script src="{{ asset('js/admin.js') }}"></script>
 </body>
 

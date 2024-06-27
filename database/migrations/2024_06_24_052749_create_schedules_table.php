@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('schedule');
             $table->enum('status', ['available', 'booked', 'not_available'])->default('available');
             $table->unsignedBigInteger('user_id')->nullable(); // Added user_id column
+            
             $table->timestamps();
             $table->unique(['court', 'schedule']);
 
