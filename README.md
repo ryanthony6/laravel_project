@@ -49,4 +49,9 @@
 
 7.  Akses website melalui `http://127.0.0.1:8000` atau `http://localhost:8000`
 
+## Instalasi
 
+```
+ admin : admin@example.com
+ pw : password
+```
