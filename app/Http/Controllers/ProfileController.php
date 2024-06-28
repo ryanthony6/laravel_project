@@ -15,7 +15,7 @@ class ProfileController extends Controller
     }
     
 
-    public function destroy(string $id)
+    public function destroy()
     {
         $user = Auth::User();
     // Hapus semua relasi atau data terkait jika diperlukan

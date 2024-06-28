@@ -25,9 +25,9 @@ Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us
 Route::middleware(['auth'])->group(function () {
 
     Route::prefix('profile')->group(function () {
-    Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
-    Route::post('/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+        Route::post('/update', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
     Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
