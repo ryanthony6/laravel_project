@@ -9,7 +9,7 @@
 
  1. Clone repistory.
     ```
-   https://github.com/ryanthony6/cahaya_sports.git
+    https://github.com/ryanthony6/cahaya_sports.git
     ```
 
  2. Install dependency 
