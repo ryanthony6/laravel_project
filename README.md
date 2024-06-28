@@ -1,6 +1,6 @@
 # Cahaya Sports
 
-**Kelompok 2:**
+**Kelompok 10:**
 
 -   Christian Fernando (535220055)
 -   Ryan Anthony (535220074)
