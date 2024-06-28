@@ -49,14 +49,4 @@
 
 7.  Akses website melalui `http://127.0.0.1:8000` atau `http://localhost:8000`
 
-## Catatan (Jika mengalami error mengenai masalah email, coba masukkan kode dibawah ini ke dalam .env)
 
-```
-MAIL_MAILER=smtp
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=petmeoutcontact@gmail.com
-MAIL_PASSWORD=nydzzhzzexblgawn
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=petmeoutcontact@gmail.com
-```
