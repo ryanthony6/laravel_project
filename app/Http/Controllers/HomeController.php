@@ -21,5 +21,11 @@ class HomeController extends Controller
         $reviews = Review::all();
         return view('homepage', compact('reviews'));
     }
+    public function admin()
+    {
+        return view('admin.home');
+    }
+
+    
 
 }

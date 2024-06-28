@@ -87,8 +87,8 @@
             <div class="p-4">
                 <h4 class="text-center">Menu</h4>
                 <ul class="list-unstyled components">
-                    <li class="{{ Route::is('admin.home') ? 'active' : '' }}">
-                        <a href="{{ route('admin.home') }}" class="d-flex text-white align-items-center gap-1">
+                    <li class="{{ Route::is('home.admin') ? 'active' : '' }}">
+                        <a href="{{ route('home.admin') }}" class="d-flex text-white align-items-center gap-1">
                             @include('icons/dashboard-layout') Dashboard
                         </a>
                   

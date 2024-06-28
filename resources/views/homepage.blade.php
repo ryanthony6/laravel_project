@@ -9,7 +9,7 @@
                 just starting out, our app helps you find, reserve, and enjoy your game without the hassle. Get started now
                 and elevate your badminton experience!
             </p>
-            <a class="btn btn-primary btn-lg mt-3" href="#field_section" role="button">Book Now!</a>
+            <a class="btn btn-primary btn-lg mt-3" href="{{ route('booking.index') }}" role="button">Book Now!</a>
         </div>
     </section>
 

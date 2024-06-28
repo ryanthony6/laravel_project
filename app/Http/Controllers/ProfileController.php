@@ -13,8 +13,9 @@ class ProfileController extends Controller
     {
         return view('profile');
     }
+    
 
-    public function destroy()
+    public function destroy(string $id)
     {
         $user = Auth::User();
     // Hapus semua relasi atau data terkait jika diperlukan

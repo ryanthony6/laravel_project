@@ -12,7 +12,6 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\HistoryController;
-use App\Http\Controllers\BookingHistoryController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -20,20 +19,19 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
 
 // Apply middleware only to routes that require authentication
 Route::middleware(['auth'])->group(function () {
+
+    Route::prefix('profile')->group(function () {
+    Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
     Route::post('/booking/store', [BookingController::class, 'store'])->name('booking.store');
-
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('/booking-history', [BookingHistoryController::class, 'showBookingHistory'])->name('booking.history');
-    Route::post('/cancel-booking/{id}', [BookingHistoryController::class, 'cancelBooking'])->name('cancel.booking');
-
-    Route::post('contact-us', [ContactController::class, 'store'])->name('contact.us.store');
-
+    Route::get('/booking-history', [BookingController::class, 'showBookingHistory'])->name('booking.history');
     Route::get('/checkout', [BookingController::class, 'checkout'])->name('checkout.index');
     Route::post('/process-checkout', [BookingController::class, 'processCheckout'])->name('process.checkout');
     Route::post('/process-payment', [BookingController::class, 'processPayment'])->name('process.payment');
@@ -50,9 +48,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
-    Route::get('/home', function () {
-        return view('admin.home');
-    })->name('admin.home');
+
+    Route::get('/home', [HomeController::class, 'admin'])->name('home.admin');
 
     // History Routes
     Route::prefix('history')->group(function () {

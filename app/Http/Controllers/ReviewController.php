@@ -71,7 +71,8 @@ class ReviewController extends Controller
         ]);
         $review = Review::find($id);
         $review->update($request->all());
-        return redirect()->route('reviews.index');
+
+        return redirect()->route('reviews.index')->with('success', 'Review updated successfully.');
     }
 
     /**

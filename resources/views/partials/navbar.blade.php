@@ -60,7 +60,7 @@
                                 @endif
                                 @if (Auth::user()->role === 'admin')
                                     <!-- Check if the user is an admin -->
-                                    <a class="dropdown-item" href="{{ route('admin.home') }}">
+                                    <a class="dropdown-item" href="{{ route('home.admin') }}">
                                         {{ __('Dashboard') }}
                                     </a>
                                 @endif

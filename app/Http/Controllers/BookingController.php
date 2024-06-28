@@ -148,5 +148,15 @@ class BookingController extends Controller
     
         return redirect()->route('home.index')->with('success', 'Payment success, Booking successfully processed!');
     }
+
+    public function showBookingHistory()
+    {
+        $userId = Auth::id();
+        $bookings = Schedule::where('user_id', $userId)->get();
+
+        return view('booking-history', [
+            'bookings' => $bookings
+        ]);
+    }
     
 }
