@@ -40,7 +40,7 @@
     php artisan db:seed
     ```
 
-    6.  Untuk konek storage gambar
+6.  Untuk konek storage gambar
 
     ```
     php artisan storage:link
