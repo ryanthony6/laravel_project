@@ -40,14 +40,20 @@
     php artisan db:seed
     ```
 
-6.  Jalankan server.
+    6.  Untuk konek storage gambar
+
+    ```
+    php artisan storage:link
+    ```
+
+7.  Jalankan server.
 
     ```
     php artisan serve
     npm run dev
     ```
 
-7.  Akses website melalui `http://127.0.0.1:8000` atau `http://localhost:8000`
+8.  Akses website melalui `http://127.0.0.1:8000` atau `http://localhost:8000`
 
 ## Instalasi
 
